@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37603C1BF8D46D7EDA494A69 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D340505B890DABBE29E0E1 /* Pods.framework */; };
 		89F5B8831C4AE10900BF4F4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F5B8821C4AE10900BF4F4B /* AppDelegate.swift */; };
 		89F5B8851C4AE10900BF4F4B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F5B8841C4AE10900BF4F4B /* ViewController.swift */; };
 		89F5B8881C4AE10900BF4F4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F5B8861C4AE10900BF4F4B /* Main.storyboard */; };
@@ -14,7 +15,6 @@
 		89F5B88D1C4AE10900BF4F4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F5B88B1C4AE10900BF4F4B /* LaunchScreen.storyboard */; };
 		89F5B8981C4AE10900BF4F4B /* PinPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F5B8971C4AE10900BF4F4B /* PinPointTests.swift */; };
 		89F5B8A31C4AE10900BF4F4B /* PinPointUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F5B8A21C4AE10900BF4F4B /* PinPointUITests.swift */; };
-		F7446D12A47E2D8E15554ED2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E1589AF22D3C7BF52B08778 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +36,6 @@
 
 /* Begin PBXFileReference section */
 		393350520671B0F48886BE35 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		5E1589AF22D3C7BF52B08778 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7C27C280F9B7FF9CF71FEE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		89F5B87F1C4AE10900BF4F4B /* PinPoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PinPoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89F5B8821C4AE10900BF4F4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +50,7 @@
 		89F5B89E1C4AE10900BF4F4B /* PinPointUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PinPointUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		89F5B8A21C4AE10900BF4F4B /* PinPointUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPointUITests.swift; sourceTree = "<group>"; };
 		89F5B8A41C4AE10900BF4F4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5D340505B890DABBE29E0E1 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7446D12A47E2D8E15554ED2 /* libPods.a in Frameworks */,
+				37603C1BF8D46D7EDA494A69 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +144,7 @@
 		F536FADDDABD1F0F1D8FF430 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5E1589AF22D3C7BF52B08778 /* libPods.a */,
+				A5D340505B890DABBE29E0E1 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -473,6 +473,10 @@
 			baseConfigurationReference = 393350520671B0F48886BE35 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PinPoint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DALI.PinPoint;
@@ -485,6 +489,10 @@
 			baseConfigurationReference = 6D7C27C280F9B7FF9CF71FEE /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PinPoint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DALI.PinPoint;
