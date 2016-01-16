@@ -5,7 +5,11 @@
 # *.[oa]
 # *~
 
+# Mac stuff
 .DS_Store
+
+# Vim
+*.swp
 
 Xcode
 #
