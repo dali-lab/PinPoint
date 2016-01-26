@@ -8,6 +8,9 @@
 # Mac stuff
 .DS_Store
 
+# Keys
+keys.plist
+
 # Vim
 *.swp
 
