@@ -8,6 +8,7 @@
 //  Copied some code from a setup file from Parse.
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
