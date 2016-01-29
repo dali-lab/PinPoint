@@ -1,3 +1,3 @@
 use_frameworks!
 xcodeproj './iOS Code/PinPoint.xcodeproj'
-pod 'Parse'
+pod 'Firebase', '>=2.5.0'
