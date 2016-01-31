@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		37603C1BF8D46D7EDA494A69 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D340505B890DABBE29E0E1 /* Pods.framework */; };
-		89D80DCE1C583DA200BB7C59 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89D80DCD1C583DA200BB7C59 /* keys.plist */; };
+		891443DB1C5D85E000F7A4A6 /* PhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891443DA1C5D85E000F7A4A6 /* PhoneNumberViewController.swift */; };
+		891443DD1C5D8FE700F7A4A6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891443DC1C5D8FE700F7A4A6 /* MapViewController.swift */; };
+		899D81A21C5C2353003C2C56 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D81A11C5C2353003C2C56 /* LoginViewController.swift */; };
 		89D80DD21C5842DF00BB7C59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D80DD11C5842DF00BB7C59 /* AppDelegate.swift */; };
-		89F5B8851C4AE10900BF4F4B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F5B8841C4AE10900BF4F4B /* ViewController.swift */; };
 		89F5B8881C4AE10900BF4F4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F5B8861C4AE10900BF4F4B /* Main.storyboard */; };
 		89F5B88A1C4AE10900BF4F4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89F5B8891C4AE10900BF4F4B /* Assets.xcassets */; };
 		89F5B88D1C4AE10900BF4F4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89F5B88B1C4AE10900BF4F4B /* LaunchScreen.storyboard */; };
@@ -38,10 +39,11 @@
 /* Begin PBXFileReference section */
 		393350520671B0F48886BE35 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		6D7C27C280F9B7FF9CF71FEE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		89D80DCD1C583DA200BB7C59 /* keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
+		891443DA1C5D85E000F7A4A6 /* PhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewController.swift; sourceTree = "<group>"; };
+		891443DC1C5D8FE700F7A4A6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		899D81A11C5C2353003C2C56 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		89D80DD11C5842DF00BB7C59 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89F5B87F1C4AE10900BF4F4B /* PinPoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PinPoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		89F5B8841C4AE10900BF4F4B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		89F5B8871C4AE10900BF4F4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89F5B8891C4AE10900BF4F4B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89F5B88C1C4AE10900BF4F4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,6 +83,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		899D81A31C5D1276003C2C56 /* Login/Setup */ = {
+			isa = PBXGroup;
+			children = (
+				899D81A11C5C2353003C2C56 /* LoginViewController.swift */,
+				891443DA1C5D85E000F7A4A6 /* PhoneNumberViewController.swift */,
+			);
+			name = Login/Setup;
+			sourceTree = "<group>";
+		};
 		89F5B8761C4AE10900BF4F4B = {
 			isa = PBXGroup;
 			children = (
@@ -106,13 +117,13 @@
 		89F5B8811C4AE10900BF4F4B /* PinPoint */ = {
 			isa = PBXGroup;
 			children = (
-				89F5B8841C4AE10900BF4F4B /* ViewController.swift */,
 				89F5B8861C4AE10900BF4F4B /* Main.storyboard */,
 				89F5B8891C4AE10900BF4F4B /* Assets.xcassets */,
 				89F5B88B1C4AE10900BF4F4B /* LaunchScreen.storyboard */,
 				89F5B88E1C4AE10900BF4F4B /* Info.plist */,
-				89D80DCD1C583DA200BB7C59 /* keys.plist */,
+				891443DC1C5D8FE700F7A4A6 /* MapViewController.swift */,
 				89D80DD11C5842DF00BB7C59 /* AppDelegate.swift */,
+				899D81A31C5D1276003C2C56 /* Login/Setup */,
 			);
 			path = PinPoint;
 			sourceTree = "<group>";
@@ -259,7 +270,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89D80DCE1C583DA200BB7C59 /* keys.plist in Resources */,
 				89F5B88D1C4AE10900BF4F4B /* LaunchScreen.storyboard in Resources */,
 				89F5B88A1C4AE10900BF4F4B /* Assets.xcassets in Resources */,
 				89F5B8881C4AE10900BF4F4B /* Main.storyboard in Resources */,
@@ -335,8 +345,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				899D81A21C5C2353003C2C56 /* LoginViewController.swift in Sources */,
 				89D80DD21C5842DF00BB7C59 /* AppDelegate.swift in Sources */,
-				89F5B8851C4AE10900BF4F4B /* ViewController.swift in Sources */,
+				891443DB1C5D85E000F7A4A6 /* PhoneNumberViewController.swift in Sources */,
+				891443DD1C5D8FE700F7A4A6 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,14 +489,13 @@
 			baseConfigurationReference = 393350520671B0F48886BE35 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)/**",
-					"$(PROJECT_DIR)/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = PinPoint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DALI.PinPoint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Debug;
 		};
@@ -493,14 +504,13 @@
 			baseConfigurationReference = 6D7C27C280F9B7FF9CF71FEE /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)/**",
-					"$(PROJECT_DIR)/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = PinPoint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DALI.PinPoint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};
