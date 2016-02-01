@@ -10,6 +10,7 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
+import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Stripe setup
+        Stripe.setDefaultPublishableKey("pk_test_6s0hJZGtff7hM05a0VZwJXOk")
+        
+        // TODO If user is signed in, skip straight to later page
+//        let currentUser = PFUser.currentUser()
+//        if currentUser != nil {
+//            // get your storyboard
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            
+//            // instantiate your desired ViewController
+//            let rootController = storyboard.instantiateViewControllerWithIdentifier("main-nav-controller")
+//            
+//            // Because self.window is an optional you should check it's value first and assign your rootViewController
+//            if self.window != nil {
+//                self.window!.rootViewController = rootController
+//            }
+//        }
+        
+        return true
         
         // FBSDK handle redirects
         return FBSDKApplicationDelegate.sharedInstance()
