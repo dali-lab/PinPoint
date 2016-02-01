@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -111,9 +112,22 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVD-PI-mg3">
-                                <rect key="frame" x="258" y="462" width="85" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Bar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uic-Aw-g7e">
+                                <rect key="frame" x="71" y="83" width="458" height="47"/>
                                 <color key="backgroundColor" red="0.24313725489999999" green="0.2784313725" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="ypi-UK-sd6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVD-PI-mg3">
+                                <rect key="frame" x="250" y="462" width="101" height="30"/>
+                                <color key="backgroundColor" red="0.24313725489999999" green="0.2784313725" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="101" id="BtM-Z8-e8K"/>
+                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Deliver Here"/>
                                 <connections>
@@ -123,12 +137,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Uic-Aw-g7e" firstAttribute="top" secondItem="Lgt-6Y-S4f" secondAttribute="bottom" constant="19" id="AI2-sg-TRj"/>
                             <constraint firstItem="2iY-bP-oeI" firstAttribute="centerX" secondItem="kl3-8z-bfn" secondAttribute="centerX" id="LiG-NB-MnU"/>
                             <constraint firstItem="2iY-bP-oeI" firstAttribute="centerY" secondItem="kl3-8z-bfn" secondAttribute="centerY" id="PxR-Ik-sKG"/>
+                            <constraint firstItem="Uic-Aw-g7e" firstAttribute="centerX" secondItem="2iY-bP-oeI" secondAttribute="centerX" id="UPk-sb-eCe"/>
+                            <constraint firstItem="Uic-Aw-g7e" firstAttribute="leading" secondItem="kl3-8z-bfn" secondAttribute="leadingMargin" constant="51" id="Wfs-hQ-gjy"/>
                             <constraint firstItem="iKz-AK-gE8" firstAttribute="top" secondItem="zVD-PI-mg3" secondAttribute="bottom" constant="108" id="e7W-Sq-iEg"/>
                             <constraint firstItem="2iY-bP-oeI" firstAttribute="centerX" secondItem="zVD-PI-mg3" secondAttribute="centerX" id="z3x-pj-tVz"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="locationBar" destination="Uic-Aw-g7e" id="hta-NN-dzW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SQx-PA-XtN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

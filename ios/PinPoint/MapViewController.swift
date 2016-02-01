@@ -12,6 +12,8 @@ import Mapbox
 
 class MapViewController: UIViewController, MGLMapViewDelegate {
     
+    @IBOutlet weak var locationBar: UILabel!
+    
     var mapView: MGLMapView!
     
     override func viewDidLoad() {
@@ -27,7 +29,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
         // set the map's center coordinate
         mapView.setCenterCoordinate(CLLocationCoordinate2D(latitude: 43.7070798,
             longitude: -72.2867714),
-            zoomLevel: 15, animated: false)
+            zoomLevel: 16, animated: false)
         view.addSubview(mapView)
         view.sendSubviewToBack(mapView)
         
@@ -39,6 +41,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        setLocation()
     }
     
     func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
@@ -46,12 +49,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate {
     }
     
     @IBAction func deliverHere(sender: AnyObject) {
-        // convert `mapView.centerCoordinate` (CLLocationCoordinate2D)
-        // to screen location (CGPoint)
+        setLocation()
+    }
+    
+    // Set location for top bar, ...
+    func setLocation() {
         let centerScreenPoint: CGPoint = mapView.convertCoordinate(mapView.centerCoordinate, toPointToView: mapView)
-        print("Screen center: \(centerScreenPoint) = \(mapView.center)")
         let location: CLLocationCoordinate2D = mapView.convertPoint(centerScreenPoint, toCoordinateFromView: mapView)
-        print("You tapped at: \(location.latitude), \(location.longitude)")
-        
+        let lat = String(format: "%f", arguments: [location.latitude])
+        let long = String(format: "%f", arguments: [location.longitude])
+        locationBar.text = lat + "," + long
     }
 }
