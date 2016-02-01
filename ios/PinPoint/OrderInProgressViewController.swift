@@ -1,20 +1,19 @@
 //
-//  MapViewController.swift
+//  OrderInProgressViewController.swift
 //  PinPoint
 //
-//  Created by Patrick Xu on 1/30/16.
+//  Created by Patrick Xu on 1/31/16.
 //  Copyright © 2016 DALI. All rights reserved.
 //
 
 import UIKit
 import Foundation
 
-class MapViewController: UIViewController {
+class OrderInProgressViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        navigationController?.navigationBar.hidden = true;
     }
     
     override func viewWillAppear(animated: Bool) {
