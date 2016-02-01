@@ -10,6 +10,7 @@
 		37603C1BF8D46D7EDA494A69 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D340505B890DABBE29E0E1 /* Pods.framework */; };
 		891443DB1C5D85E000F7A4A6 /* PhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891443DA1C5D85E000F7A4A6 /* PhoneNumberViewController.swift */; };
 		891443DD1C5D8FE700F7A4A6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891443DC1C5D8FE700F7A4A6 /* MapViewController.swift */; };
+		899982BA1C5F24F30018C3C9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 899982B91C5F24F30018C3C9 /* Settings.bundle */; };
 		899D81A21C5C2353003C2C56 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D81A11C5C2353003C2C56 /* LoginViewController.swift */; };
 		89A204CC1C5F196D002E609D /* OrderInProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A204CB1C5F196D002E609D /* OrderInProgressViewController.swift */; };
 		89D80DD21C5842DF00BB7C59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D80DD11C5842DF00BB7C59 /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 		6D7C27C280F9B7FF9CF71FEE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		891443DA1C5D85E000F7A4A6 /* PhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewController.swift; sourceTree = "<group>"; };
 		891443DC1C5D8FE700F7A4A6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		899982B91C5F24F30018C3C9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		899D81A11C5C2353003C2C56 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		89A204CB1C5F196D002E609D /* OrderInProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderInProgressViewController.swift; sourceTree = "<group>"; };
 		89D80DD11C5842DF00BB7C59 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 		89F5B8811C4AE10900BF4F4B /* PinPoint */ = {
 			isa = PBXGroup;
 			children = (
+				899982B91C5F24F30018C3C9 /* Settings.bundle */,
 				89F5B8861C4AE10900BF4F4B /* Main.storyboard */,
 				89A204CB1C5F196D002E609D /* OrderInProgressViewController.swift */,
 				89F5B8891C4AE10900BF4F4B /* Assets.xcassets */,
@@ -179,6 +182,7 @@
 				89F5B87D1C4AE10900BF4F4B /* Resources */,
 				6B01F4A36C2394E7E3D63955 /* Embed Pods Frameworks */,
 				D45ACF90F800E8056FEE967A /* Copy Pods Resources */,
+				89A329BB1C5F2DDC001D18A1 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -237,6 +241,11 @@
 				TargetAttributes = {
 					89F5B87E1C4AE10900BF4F4B = {
 						CreatedOnToolsVersion = 7.2;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					89F5B8921C4AE10900BF4F4B = {
 						CreatedOnToolsVersion = 7.2;
@@ -273,6 +282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				899982BA1C5F24F30018C3C9 /* Settings.bundle in Resources */,
 				89F5B88D1C4AE10900BF4F4B /* LaunchScreen.storyboard in Resources */,
 				89F5B88A1C4AE10900BF4F4B /* Assets.xcassets in Resources */,
 				89F5B8881C4AE10900BF4F4B /* Main.storyboard in Resources */,
@@ -325,6 +335,20 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		89A329BB1C5F2DDC001D18A1 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "token_file=./PinPoint/mapbox_key\ntoken=\"$(cat $token_file)\"\nif [ \"$token\" ]; then\nplutil -replace MGLMapboxAccessToken -string $token $TARGET_BUILD_DIR/$INFOPLIST_PATH\nelse\necho 'error: Missing Mapbox access token'\n#open 'https://www.mapbox.com/account/apps/'\necho \"error: Get an access token from <https://www.mapbox.com/account/apps/>, then create a new file at $token_file that contains the access token.\"\nexit 1\nfi";
 		};
 		D45ACF90F800E8056FEE967A /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -493,10 +517,50 @@
 			baseConfigurationReference = 393350520671B0F48886BE35 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/**";
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/**",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/**",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = PinPoint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"FBSDKShareKit\"",
+					"-framework",
+					"\"Firebase\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"Mapbox\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Stripe\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = DALI.PinPoint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -508,10 +572,50 @@
 			baseConfigurationReference = 6D7C27C280F9B7FF9CF71FEE /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/**";
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/**",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/**",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = PinPoint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"FBSDKShareKit\"",
+					"-framework",
+					"\"Firebase\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"Mapbox\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Stripe\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = DALI.PinPoint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";

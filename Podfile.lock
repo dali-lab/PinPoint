@@ -12,6 +12,7 @@ PODS:
   - FBSDKShareKit (4.9.1):
     - FBSDKCoreKit
   - Firebase (2.5.0)
+  - Mapbox-iOS-SDK (3.0.1)
   - Stripe (6.1.0):
     - Stripe/Core (= 6.1.0)
   - Stripe/Core (6.1.0)
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - FBSDKLoginKit
   - FBSDKShareKit
   - Firebase (>= 2.5.0)
+  - Mapbox-iOS-SDK
   - Stripe
 
 SPEC CHECKSUMS:
@@ -29,6 +31,7 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: ec22dc49bd372b064e93d6773df4ffefb3a552a2
   FBSDKShareKit: b8c8ef0ed173f9fc1b3c8df384a0202ce53008d4
   Firebase: 744617c0733b45198f9486ebd5cac64ec2d10d79
+  Mapbox-iOS-SDK: 61e79f3dd8432617bd1a66b2d7273ab5ce923ca9
   Stripe: bee87bf3459953211b9a3709fb3b90a90a62b060
 
 COCOAPODS: 0.39.0

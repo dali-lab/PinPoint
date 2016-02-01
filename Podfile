@@ -5,3 +5,4 @@ pod 'FBSDKCoreKit', :inhibit_warnings => true
 pod 'FBSDKLoginKit', :inhibit_warnings => true
 pod 'FBSDKShareKit', :inhibit_warnings => true
 pod 'Stripe'
+pod 'Mapbox-iOS-SDK'
