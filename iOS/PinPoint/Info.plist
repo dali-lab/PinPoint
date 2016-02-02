@@ -66,7 +66,9 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Get the user location to find delivery spot.</string>
+	<string>Get food delivered to your current location!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>when does this happen?</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

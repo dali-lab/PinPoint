@@ -11,12 +11,13 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Stripe
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
+    let locationManager = CLLocationManager()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -38,6 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                self.window!.rootViewController = rootController
 //            }
 //        }
+        
+        // Location
+        // Ask for authorization from the User.
+        self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
         
         // FBSDK handle redirects
         return FBSDKApplicationDelegate.sharedInstance()
