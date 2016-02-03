@@ -10,15 +10,16 @@ import UIKit
 import Foundation
 import Mapbox
 
-class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
+class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, searchResultDelegate {
     
     @IBOutlet weak var locationBar: UILabel!
     
     var mapView: MGLMapView!
     let locationManager = CLLocationManager()
     let defaultCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 43.705435, longitude: -72.2891243) // Baker librry
-    var userCoordinate: CLLocationCoordinate2D!
+    var currCoordinate: CLLocationCoordinate2D!
     var gotUserLocation = false
+    var searchViewController: SearchLocationViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -26,18 +27,24 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         navigationController?.navigationBar.hidden = true;
         
         initMapView()
+        
+        // set default location; should probably do this better/differently
+        currCoordinate = defaultCoordinate
+        
+        searchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchViewController") as! SearchLocationViewController
+        searchViewController.delegate = self
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         // TODO better way to set default location behavior?
-        userCoordinate = defaultCoordinate
         setLocation()
     }
     
     @IBAction func searchButton(sender: AnyObject) {
-        
+        self.presentViewController(searchViewController, animated: true, completion: nil) //TODO completion
     }
     
     // initializes the Mapbox map
@@ -70,36 +77,38 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         setLocation()
     }
     
+    func searchResultSelected(sender: AnyObject) {
+        let cell = sender as! ResultTableViewCell
+        currCoordinate = cell.placemark.location?.coordinate
+        setLocation()
+    }
+    
     // Set location for top bar, map center
     func setLocation() {
-        // top bar
-        let location: CLLocation = CLLocation(latitude: userCoordinate.latitude, longitude: userCoordinate.longitude)
-        CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
-            if (error != nil) {
-                print("Reverse geocoder failed with an error" + error!.localizedDescription)
-            } else if placemarks!.count > 0 {
-                self.locationBar.text = LocationUtils.addressFromPlacemark(placemarks!)
-            } else {
-                print("Problems with the data received from geocoder.")
-            }
-        })
+        // update top bar
+        let location: CLLocation = CLLocation(latitude: currCoordinate.latitude, longitude: currCoordinate.longitude)
+        LocationUtils.reverseGeocoding(location, completion: updateResultBar)
         
-        // map's center coordinate
+        // update map location by setting center coordinate
         mapView.setCenterCoordinate(CLLocationCoordinate2D(
-            latitude: userCoordinate.latitude,
-            longitude: userCoordinate.longitude),
+            latitude: currCoordinate.latitude,
+            longitude: currCoordinate.longitude),
             zoomLevel: 16, animated: false)
         
-        let lat = String(format: "%f", arguments: [userCoordinate.latitude])
-        let long = String(format: "%f", arguments: [userCoordinate.longitude])
+        let lat = String(format: "%f", arguments: [currCoordinate.latitude])
+        let long = String(format: "%f", arguments: [currCoordinate.longitude])
         print("set map location = \(lat) \(long)")
+    }
+    
+    func updateResultBar(placemark: CLPlacemark) {
+        self.locationBar.text = LocationUtils.addressFromPlacemark(placemark)
     }
     
     // get user's current location once
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // TODO manager not nil?
         if (!gotUserLocation) {
-            self.userCoordinate = manager.location!.coordinate
+            self.currCoordinate = manager.location!.coordinate
             setLocation()
             gotUserLocation = true
             locationManager.stopUpdatingLocation()
@@ -109,6 +118,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     // get screen center point
     func getScreenCenterPoint() {
         let centerScreenPoint: CGPoint = mapView.convertCoordinate(mapView.centerCoordinate, toPointToView: mapView)
-        userCoordinate = mapView.convertPoint(centerScreenPoint, toCoordinateFromView: mapView)
+        currCoordinate = mapView.convertPoint(centerScreenPoint, toCoordinateFromView: mapView)
     }
 }

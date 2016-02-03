@@ -109,7 +109,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;&lt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iY-bP-oeI">
                                 <rect key="frame" x="289" y="289" width="22" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVD-PI-mg3">
@@ -145,7 +145,6 @@
                                 </state>
                                 <connections>
                                     <action selector="searchButton:" destination="tTu-kQ-grn" eventType="touchUpInside" id="CZk-iw-CdK"/>
-                                    <segue destination="hDl-M4-jx3" kind="presentation" id="LZy-aY-ZpX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -174,7 +173,7 @@
         <!--Search Location View Controller-->
         <scene sceneID="VJ0-o9-Pgi">
             <objects>
-                <viewController id="hDl-M4-jx3" customClass="SearchLocationViewController" customModule="PinPoint" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchViewController" id="hDl-M4-jx3" customClass="SearchLocationViewController" customModule="PinPoint" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cXu-hr-W6T"/>
                         <viewControllerLayoutGuide type="bottom" id="YGG-hz-Iel"/>
@@ -216,7 +215,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NIB-gk-Xna">
                                                     <rect key="frame" x="188" y="8" width="224" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>

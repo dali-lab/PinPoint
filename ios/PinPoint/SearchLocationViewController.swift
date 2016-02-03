@@ -15,9 +15,10 @@ class SearchLocationViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var searchBar: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
-    var searchResults = [String]()
+    var searchResults = [CLPlacemark]()
     var timer: NSTimer!
     var currentSearchText: String!
+    var delegate = searchResultDelegate!()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +38,12 @@ class SearchLocationViewController: UIViewController, UITableViewDelegate, UITab
         return searchResults.count
     }
     
-    // table view data source- cell at index
+    // table view data source- cell at index; decode placemark and create the cell
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ResultCell", forIndexPath: indexPath) as! ResultTableViewCell
-        cell.resultText.text = searchResults[indexPath.row]
+        let placemark = searchResults[indexPath.row]
+        cell.placemark = placemark
+        cell.resultText.text = LocationUtils.addressFromPlacemark(placemark)
         return cell
     }
     
@@ -52,13 +55,18 @@ class SearchLocationViewController: UIViewController, UITableViewDelegate, UITab
     // table view delegate- cell selection
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("clicked" + String(indexPath))
+        if (self.delegate != nil) {
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+                self.delegate.searchResultSelected(cell)
+                self.dismissViewControllerAnimated(false, completion: nil)
+            }
+        }
     }
     
     // refresh table view
     func refresh(refreshControl: UIRefreshControl) {
         refreshControl.endRefreshing()
     }
-    
     
     // text field changed so search and update search results
     @IBAction func textFieldChanged(sender: AnyObject) {
@@ -74,14 +82,18 @@ class SearchLocationViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
+    // execute forward geocoding search when user stops typing
     func getAddressFromSearch() {
         print("executing forward search on " + currentSearchText)
         LocationUtils.forwardGeocoding(currentSearchText, completion: updateSearchResults)
     }
     
+    // update the view presented to the user
     func updateSearchResults(placemarks: [CLPlacemark]) {
         searchResults.removeAll()
-        searchResults.append(LocationUtils.addressFromPlacemark(placemarks))
+        for placemark in placemarks {
+            searchResults.append(placemark)
+        }
         tableView.reloadData()
     }
     
@@ -90,4 +102,8 @@ class SearchLocationViewController: UIViewController, UITableViewDelegate, UITab
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+}
+
+protocol searchResultDelegate {
+    func searchResultSelected(sender: AnyObject)
 }

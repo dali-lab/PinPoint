@@ -8,10 +8,12 @@
 
 import UIKit
 import Foundation
+import CoreLocation
 
 class ResultTableViewCell: UITableViewCell {
     
     @IBOutlet weak var resultText: UILabel!
+    var placemark: CLPlacemark!
     
     override func awakeFromNib() {
         super.awakeFromNib()
