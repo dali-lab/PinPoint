@@ -25,27 +25,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Stripe setup
         Stripe.setDefaultPublishableKey("pk_test_6s0hJZGtff7hM05a0VZwJXOk")
         
-        // TODO If user is signed in, skip straight to later page
-//        let currentUser = PFUser.currentUser()
-//        if currentUser != nil {
-//            // get your storyboard
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            
-//            // instantiate your desired ViewController
-//            let rootController = storyboard.instantiateViewControllerWithIdentifier("main-nav-controller")
-//            
-//            // Because self.window is an optional you should check it's value first and assign your rootViewController
-//            if self.window != nil {
-//                self.window!.rootViewController = rootController
-//            }
-//        }
-        
         // Location
         // Ask for authorization from the User.
         self.locationManager.requestAlwaysAuthorization()
         
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
+        
+        // Skip sign in if user is signed in
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            // get the storyboard
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            // instantiate the desired ViewController
+            // TODO this should only be done if we have the user's basic info
+            let rootController = storyboard.instantiateViewControllerWithIdentifier("MapView")
+            
+            // Because self.window is an optional you should check it's value first and assign your rootViewController
+            if self.window != nil {
+                self.window!.rootViewController = rootController
+            }
+        }
         
         // FBSDK handle redirects
         return FBSDKApplicationDelegate.sharedInstance()

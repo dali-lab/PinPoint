@@ -9,12 +9,14 @@
 import UIKit
 import Foundation
 import Mapbox
+import MapKit
 
 class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, searchResultDelegate {
     
     @IBOutlet weak var locationBar: UILabel!
     
     var mapView: MGLMapView!
+//    var mapView: MKMapView!
     let locationManager = CLLocationManager()
     let defaultCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 43.705435, longitude: -72.2891243) // Baker librry
     var currCoordinate: CLLocationCoordinate2D!
@@ -24,7 +26,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        navigationController?.navigationBar.hidden = true;
+        navigationController?.navigationBar.hidden = false;
+        navigationController?.hidesBarsOnSwipe = true;
         
         initMapView()
         
@@ -47,10 +50,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         self.presentViewController(searchViewController, animated: true, completion: nil) //TODO completion
     }
     
-    // initializes the Mapbox map
+    // initializes the map
     func initMapView() {
+        // TODO allow rotation?
         // initialize the map view
         mapView = MGLMapView(frame: view.bounds)
+//        mapView = MKMapView(frame: view.bounds)
         mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 //        mapView = MGLMapView(frame: view.bounds, styleURL: MGLStyle.darkStyleURL())
         
@@ -67,6 +72,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
             locationManager.startUpdatingLocation()
         }
     }
+    
+//    func mapView(mapView: MKMapView, annotationCanShowCallout annotation: MKAnnotation) -> Bool {
+//        return true
+//    }
     
     func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         return true
@@ -93,7 +102,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         mapView.setCenterCoordinate(CLLocationCoordinate2D(
             latitude: currCoordinate.latitude,
             longitude: currCoordinate.longitude),
-            zoomLevel: 16, animated: false)
+            zoomLevel: 16,
+            animated: false)
+//        mapView.setCenterCoordinate(CLLocationCoordinate2D(
+//            latitude: currCoordinate.latitude,
+//            longitude: currCoordinate.longitude),
+//            animated: false)
         
         let lat = String(format: "%f", arguments: [currCoordinate.latitude])
         let long = String(format: "%f", arguments: [currCoordinate.longitude])
