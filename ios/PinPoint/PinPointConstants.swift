@@ -13,6 +13,16 @@ let ExampleColor = UIColor(red: 0, green: 0xFF, blue: 0x0F)
 let ExampleColorTwo = UIColor(hex:0x00FF0F)
 
 
+// Theme colors
+let ThemeWhite = UIColor(hex:0xffffff)
+
+let ThemeBlack = UIColor(hex:0x000000)
+
+let ThemeGrey = UIColor(hex:0x959595)
+
+let ThemeRed = UIColor(hex:0xf3372a)
+
+
 // let UIColors to be instantiated via hex
 extension UIColor {
     convenience init(red: Int, green: Int, blue: Int) {
