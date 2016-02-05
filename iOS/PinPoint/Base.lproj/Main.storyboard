@@ -64,6 +64,7 @@
                     <connections>
                         <outlet property="backgroundImage" destination="5kv-Ae-Dt0" id="POz-o6-c9U"/>
                         <outlet property="loginButton" destination="bEl-LK-crp" id="ePX-ac-uxR"/>
+                        <outlet property="signUpButton" destination="Apt-Ma-WFd" id="1g4-ab-O73"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pXA-HH-XYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
