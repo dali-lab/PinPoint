@@ -15,22 +15,19 @@ class HomePageViewController: UIViewController {
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var signUpButton: UIButton!
     
-    let borderWidth: float = 2.0
-    
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        navigationController?.navigationBar.hidden = true;
-        
         view.sendSubviewToBack(backgroundImage)
         
-        loginButton.setTitleColor(ExampleColor, forState: .Normal)
-        loginButton.layer.borderWidth = self.borderWidth
-        loginButton.layer.borderColor = ExampleColor.CGColor
+        UIUtils.styleButton(loginButton, textColor: ThemeText, borderColor: ThemeText.CGColor, borderWidth: BorderWidth, cornerRadius: CornerRadius, backgroundColor: nil)
         
+        UIUtils.styleButton(signUpButton, textColor: ThemeText, borderColor: ThemeAccent.CGColor, borderWidth: BorderWidth, cornerRadius: CornerRadius, backgroundColor: ThemeAccent.CGColor)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.hidden = true;
     }
 }

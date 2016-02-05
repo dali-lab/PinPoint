@@ -9,18 +9,27 @@
 import UIKit
 
 let ExampleColor = UIColor(red: 0, green: 0xFF, blue: 0x0F)
-
 let ExampleColorTwo = UIColor(hex:0x00FF0F)
+
+// Colors
+
+let White = UIColor(hex:0xffffff)
+let Black = UIColor(hex:0x000000)
+let Grey = UIColor(hex:0x959595)
+let Red = UIColor(hex:0xf3372a)
+let PlaceholderColor = UIColor(hex:0xC7C7CD)
 
 
 // Theme colors
-let ThemeWhite = UIColor(hex:0xffffff)
 
-let ThemeBlack = UIColor(hex:0x000000)
+let ThemeText = White
+let ThemeTextBorder = White
+let ThemeAccent = Red
+let ThemeAccentBorder = Red
 
-let ThemeGrey = UIColor(hex:0x959595)
-
-let ThemeRed = UIColor(hex:0xf3372a)
+// UI element constants
+let BorderWidth: CGFloat = 3.0
+let CornerRadius: CGFloat = 6.0
 
 
 // let UIColors to be instantiated via hex

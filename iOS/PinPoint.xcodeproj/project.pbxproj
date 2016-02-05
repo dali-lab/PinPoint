@@ -12,6 +12,8 @@
 		891443DD1C5D8FE700F7A4A6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891443DC1C5D8FE700F7A4A6 /* MapViewController.swift */; };
 		893EA96D1C653B7C0071527E /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA96C1C653B7C0071527E /* HomePageViewController.swift */; };
 		893EA96F1C653F460071527E /* PinPointConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA96E1C653F460071527E /* PinPointConstants.swift */; };
+		893EA9721C654CB30071527E /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA9711C654CB30071527E /* UIUtils.swift */; };
+		893EA9741C6555230071527E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA9731C6555230071527E /* SignUpViewController.swift */; };
 		899982BA1C5F24F30018C3C9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 899982B91C5F24F30018C3C9 /* Settings.bundle */; };
 		899D81A21C5C2353003C2C56 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D81A11C5C2353003C2C56 /* LoginViewController.swift */; };
 		89A204CC1C5F196D002E609D /* OrderInProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A204CB1C5F196D002E609D /* OrderInProgressViewController.swift */; };
@@ -50,6 +52,8 @@
 		891443DC1C5D8FE700F7A4A6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		893EA96C1C653B7C0071527E /* HomePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		893EA96E1C653F460071527E /* PinPointConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinPointConstants.swift; sourceTree = "<group>"; };
+		893EA9711C654CB30071527E /* UIUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
+		893EA9731C6555230071527E /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		899982B91C5F24F30018C3C9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		899D81A11C5C2353003C2C56 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		89A204CB1C5F196D002E609D /* OrderInProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderInProgressViewController.swift; sourceTree = "<group>"; };
@@ -97,12 +101,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		893EA9701C654CA80071527E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				893EA96E1C653F460071527E /* PinPointConstants.swift */,
+				893EA9711C654CB30071527E /* UIUtils.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		899D81A31C5D1276003C2C56 /* Home/Login/Setup */ = {
 			isa = PBXGroup;
 			children = (
 				899D81A11C5C2353003C2C56 /* LoginViewController.swift */,
 				891443DA1C5D85E000F7A4A6 /* PhoneNumberViewController.swift */,
 				893EA96C1C653B7C0071527E /* HomePageViewController.swift */,
+				893EA9731C6555230071527E /* SignUpViewController.swift */,
 			);
 			name = Home/Login/Setup;
 			sourceTree = "<group>";
@@ -143,16 +157,16 @@
 		89F5B8811C4AE10900BF4F4B /* PinPoint */ = {
 			isa = PBXGroup;
 			children = (
-				899982B91C5F24F30018C3C9 /* Settings.bundle */,
-				89F5B8861C4AE10900BF4F4B /* Main.storyboard */,
-				89A204CB1C5F196D002E609D /* OrderInProgressViewController.swift */,
-				89C4EC911C600E37002640FD /* Map/Search */,
-				89F5B8891C4AE10900BF4F4B /* Assets.xcassets */,
-				89F5B88B1C4AE10900BF4F4B /* LaunchScreen.storyboard */,
-				89F5B88E1C4AE10900BF4F4B /* Info.plist */,
 				89D80DD11C5842DF00BB7C59 /* AppDelegate.swift */,
+				89F5B8891C4AE10900BF4F4B /* Assets.xcassets */,
 				899D81A31C5D1276003C2C56 /* Home/Login/Setup */,
-				893EA96E1C653F460071527E /* PinPointConstants.swift */,
+				89F5B88E1C4AE10900BF4F4B /* Info.plist */,
+				89F5B88B1C4AE10900BF4F4B /* LaunchScreen.storyboard */,
+				89F5B8861C4AE10900BF4F4B /* Main.storyboard */,
+				89C4EC911C600E37002640FD /* Map/Search */,
+				89A204CB1C5F196D002E609D /* OrderInProgressViewController.swift */,
+				899982B91C5F24F30018C3C9 /* Settings.bundle */,
+				893EA9701C654CA80071527E /* UI */,
 			);
 			path = PinPoint;
 			sourceTree = "<group>";
@@ -400,6 +414,8 @@
 				893EA96D1C653B7C0071527E /* HomePageViewController.swift in Sources */,
 				899D81A21C5C2353003C2C56 /* LoginViewController.swift in Sources */,
 				89A204CC1C5F196D002E609D /* OrderInProgressViewController.swift in Sources */,
+				893EA9721C654CB30071527E /* UIUtils.swift in Sources */,
+				893EA9741C6555230071527E /* SignUpViewController.swift in Sources */,
 				893EA96F1C653F460071527E /* PinPointConstants.swift in Sources */,
 				89D80DD21C5842DF00BB7C59 /* AppDelegate.swift in Sources */,
 				89C4EC901C600E2D002640FD /* SearchLocationViewController.swift in Sources */,

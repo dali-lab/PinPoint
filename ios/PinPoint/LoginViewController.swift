@@ -38,24 +38,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             loginView.readPermissions = ["public_profile", "email"]
             loginView.delegate = self
         }
-        
-        navigationController?.navigationBar.hidden = true;
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-    }
-    
-    @IBAction func guestLogin(sender: AnyObject) {
-        ref.authAnonymouslyWithCompletionBlock { error, authData in
-            if error != nil {
-                print("ERROR: User unable to login anonymously. (\(error))")
-            } else {
-                print("User logged in anonymously.")
-                self.performSegueWithIdentifier("loginSegue", sender: self)
-            }
-        }
+        navigationController?.navigationBar.hidden = false
     }
     
     // Facebook Delegate Method

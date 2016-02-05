@@ -13,7 +13,10 @@ import MapKit
 
 class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, searchResultDelegate {
     
+    @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var locationBar: UILabel!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var deliverHereButton: UIButton!
     
     var mapView: MGLMapView!
 //    var mapView: MKMapView!
@@ -26,7 +29,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        navigationController?.navigationBar.hidden = false;
+        navigationController?.navigationBar.hidden = true;
         navigationController?.hidesBarsOnSwipe = true;
         
         initMapView()
@@ -37,6 +40,17 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         searchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchViewController") as! SearchLocationViewController
         searchViewController.delegate = self
         
+        UIUtils.styleImage(profileImage, borderColor: ThemeAccent.CGColor, borderWidth: BorderWidth, cornerRadius: profileImage.frame.height/2)
+        
+        
+        UIUtils.styleButton(deliverHereButton, textColor: ThemeText, borderColor: nil, borderWidth: 0, cornerRadius: 0, backgroundColor: ThemeAccent.CGColor)
+        
+        let tap = UITapGestureRecognizer(target: self, action: Selector("viewProfile:"))
+        profileImage.userInteractionEnabled = true
+        profileImage.addGestureRecognizer(tap)
+    }
+    
+    func viewProfile(recognizer: UITapGestureRecognizer){
     }
     
     override func viewWillAppear(animated: Bool) {
