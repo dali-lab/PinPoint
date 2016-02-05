@@ -14,6 +14,8 @@ class PhoneNumberViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        navigationController?.navigationBar.hidden = true
+        
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -58,7 +58,7 @@ class SearchLocationViewController: UIViewController, UITableViewDelegate, UITab
         if (self.delegate != nil) {
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
                 self.delegate.searchResultSelected(cell)
-                self.dismissViewControllerAnimated(false, completion: nil)
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
     }

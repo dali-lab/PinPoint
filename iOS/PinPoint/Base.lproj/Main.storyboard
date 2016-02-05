@@ -6,6 +6,70 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Home Page View Controller-->
+        <scene sceneID="ZxX-Oo-iD5">
+            <objects>
+                <viewController id="qN1-FY-fls" customClass="HomePageViewController" customModule="PinPoint" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OMN-N3-3Xy"/>
+                        <viewControllerLayoutGuide type="bottom" id="oTy-Y6-Cki"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="C8L-xq-lQg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iT9-A2-GPy">
+                                <rect key="frame" x="20" y="72" width="560" height="201"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="201" id="FDK-Dx-hPP"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Apt-Ma-WFd">
+                                <rect key="frame" x="246" y="480" width="108" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Sign Up">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEl-LK-crp">
+                                <rect key="frame" x="256" y="404" width="88" height="56"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Log In">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="RpF-tk-0w0" kind="show" id="MOB-F4-m6h"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="5kv-Ae-Dt0">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Apt-Ma-WFd" firstAttribute="top" secondItem="bEl-LK-crp" secondAttribute="bottom" constant="38" id="6d8-1j-1Ig"/>
+                            <constraint firstAttribute="trailing" secondItem="5kv-Ae-Dt0" secondAttribute="trailing" id="6rp-Ce-6dT"/>
+                            <constraint firstItem="oTy-Y6-Cki" firstAttribute="top" secondItem="Apt-Ma-WFd" secondAttribute="bottom" constant="72" id="8Xa-Q1-t5D"/>
+                            <constraint firstItem="5kv-Ae-Dt0" firstAttribute="top" secondItem="C8L-xq-lQg" secondAttribute="top" id="S5n-Ka-urE"/>
+                            <constraint firstItem="iT9-A2-GPy" firstAttribute="centerX" secondItem="5kv-Ae-Dt0" secondAttribute="centerX" id="UAv-dy-7bK"/>
+                            <constraint firstItem="5kv-Ae-Dt0" firstAttribute="bottom" secondItem="oTy-Y6-Cki" secondAttribute="top" id="bh9-Ig-QIF"/>
+                            <constraint firstItem="bEl-LK-crp" firstAttribute="centerX" secondItem="Apt-Ma-WFd" secondAttribute="centerX" id="dn9-LF-jU4"/>
+                            <constraint firstItem="5kv-Ae-Dt0" firstAttribute="leading" secondItem="C8L-xq-lQg" secondAttribute="leading" id="eVz-pE-WZQ"/>
+                            <constraint firstItem="iT9-A2-GPy" firstAttribute="top" secondItem="OMN-N3-3Xy" secondAttribute="bottom" constant="8" symbolic="YES" id="fTa-3V-4ax"/>
+                            <constraint firstItem="iT9-A2-GPy" firstAttribute="centerX" secondItem="bEl-LK-crp" secondAttribute="centerX" id="oyt-rI-xJZ"/>
+                            <constraint firstItem="iT9-A2-GPy" firstAttribute="leading" secondItem="C8L-xq-lQg" secondAttribute="leadingMargin" id="uO4-lH-ORY"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="8ez-gz-QNA"/>
+                    <connections>
+                        <outlet property="backgroundImage" destination="5kv-Ae-Dt0" id="POz-o6-c9U"/>
+                        <outlet property="loginButton" destination="bEl-LK-crp" id="ePX-ac-uxR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pXA-HH-XYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1189" y="379"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="6ww-wY-UQO">
             <objects>
@@ -97,7 +161,7 @@
         <!--Map View Controller-->
         <scene sceneID="toN-6i-udx">
             <objects>
-                <viewController id="tTu-kQ-grn" customClass="MapViewController" customModule="PinPoint" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapView" id="tTu-kQ-grn" customClass="MapViewController" customModule="PinPoint" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lgt-6Y-S4f"/>
                         <viewControllerLayoutGuide type="bottom" id="iKz-AK-gE8"/>
@@ -266,12 +330,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="RpF-tk-0w0" kind="relationship" relationship="rootViewController" id="9qp-ej-01H"/>
+                        <segue destination="qN1-FY-fls" kind="relationship" relationship="rootViewController" id="WO2-A8-jgW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JEb-aI-Usy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1155" y="378"/>
+            <point key="canvasLocation" x="475" y="379"/>
         </scene>
         <!--Order In Progress View Controller-->
         <scene sceneID="9fK-bZ-dBf">
@@ -304,4 +368,7 @@
             <point key="canvasLocation" x="3401" y="1091"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="885" height="1440"/>
+    </resources>
 </document>
