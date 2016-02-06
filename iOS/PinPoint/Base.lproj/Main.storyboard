@@ -100,7 +100,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="uS6-zs-Q86"/>
                     <connections>
                         <segue destination="ibY-jI-mCy" kind="show" identifier="loginSegue" id="0hQ-nB-aNS"/>
                     </connections>
@@ -167,23 +166,11 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="4M5-PM-1Qx">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="8RT-QI-Ogh">
-                            <connections>
-                                <action selector="logoutButtonPressed:" destination="ibY-jI-mCy" id="Kya-pU-WmW"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="cIg-fo-DCa">
-                            <connections>
-                                <action selector="nextButtonPressed:" destination="ibY-jI-mCy" id="hiF-XP-K0l"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="4M5-PM-1Qx"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="phoneNumbertextField" destination="y33-Fw-mdV" id="XA4-Jc-NDO"/>
                         <segue destination="tTu-kQ-grn" kind="show" identifier="basicInfoEnteredSegue" id="AhE-RR-4d9"/>
-                        <segue destination="qN1-FY-fls" kind="show" identifier="returnHomeSegue" id="xWu-cG-wJd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rlg-Gl-H6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -418,7 +405,6 @@
         <image name="pinpoint_logo" width="810" height="488"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xWu-cG-wJd"/>
-        <segue reference="YoG-BU-x5n"/>
+        <segue reference="0hQ-nB-aNS"/>
     </inferredMetricsTieBreakers>
 </document>

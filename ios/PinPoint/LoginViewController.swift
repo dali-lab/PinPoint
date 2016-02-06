@@ -14,30 +14,20 @@ import FBSDKLoginKit
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
-    let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
+    let ref = Firebase(url: "https://pinpoint-app.firebaseio.com/")
     
     //viewDidLoad is things you have to do once. viewWillAppear gets called every
     //time the view appears
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        // FB login stuff
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
-            //TODO
-            self.performSegueWithIdentifier("loginSegue", sender: self)
-//            let loginView : FBSDKLoginButton = FBSDKLoginButton()
-//            self.view.addSubview(loginView)
-//            loginView.center = self.view.center
-//            loginView.readPermissions = ["public_profile", "email"]
-//            loginView.delegate = self
-            // User is already logged in, do work such as go to next view controller.
-        } else {
-            let loginView : FBSDKLoginButton = FBSDKLoginButton()
-            self.view.addSubview(loginView)
-            loginView.center = self.view.center
-            loginView.readPermissions = ["public_profile", "email"]
-            loginView.delegate = self
-        }
+        let loginButton : FBSDKLoginButton = FBSDKLoginButton()
+        self.view.addSubview(loginButton)
+        loginButton.center = self.view.center
+//        loginButton.readPermissions = ["public_profile", "email"] //TODO need any?
+        loginButton.delegate = self
+        
+        self.navigationItem.title = "Log In"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -57,21 +47,19 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             print("User logged in with Facebook")
             // If you ask for multiple permissions at once, you
             // should check if specific permissions missing
-            if result.grantedPermissions.contains("email") {
-                returnUserData()
-                // Do work
+            if !result.grantedPermissions.contains("email") {
+                print("Permission error when logging in with facebook")
             }
+            
             let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
-
             ref.authWithOAuthProvider("facebook", token: accessToken,
                 withCompletionBlock: { error, authData in
                     if error != nil {
                         print("Login failed. \(error)")
                     } else {
-//                        print("\(authData.token)")
+                        self.loginUser(authData)
                     }
             })
-            self.performSegueWithIdentifier("loginSegue", sender: self)
         }
     }
     
@@ -80,18 +68,21 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         print("User logged out of facebook")
     }
     
-    // get facebook user data
-    func returnUserData() {
-        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "email, name"])
-        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
-            
-            if ((error) != nil) {
-                // Process error
-                print("Error: \(error)")
-            } else {
-                print("fetched user: \(result)")
+    //get the user
+    func loginUser(auth: FAuthData) {
+        let userExistsRef = self.ref.childByAppendingPath("users" + auth.uid)
+        userExistsRef.observeEventType(.Value, withBlock: { snap in
+            if snap.value is NSNull {
+                //TODO handle user account doesn't exist
+                let loginManager = FBSDKLoginManager.init()
+                loginManager.logOut()
             }
         })
+        let userRef = self.ref.childByAppendingPath("users")
+        userRef.queryOrderedByChild("uid").queryEqualToValue(auth.uid).observeEventType(.ChildAdded, withBlock: { snapshot in
+            print("logging in: ")
+            print(snapshot)
+            self.performSegueWithIdentifier("loginSegue", sender: self)
+        })
     }
-    
 }

@@ -32,20 +32,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
         
-        // Skip sign in if user is signed in
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
-            // get the storyboard
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            // instantiate the desired ViewController
-            // TODO this should only be done if we have the user's basic info
-            let rootController = storyboard.instantiateViewControllerWithIdentifier("MapView")
-            
-            // Because self.window is an optional you should check it's value first and assign your rootViewController
-            if self.window != nil {
-                self.window!.rootViewController = rootController
-            }
-        }
+//        // Skip sign in if user is signed in
+//        if (FBSDKAccessToken.currentAccessToken() != nil) {
+//            // get the storyboard
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            
+//            // instantiate the desired ViewController
+//            // TODO this should only be done if we have the user's basic info
+//            let rootController = storyboard.instantiateViewControllerWithIdentifier("MapView")
+//            
+//            // Because self.window is an optional you should check it's value first and assign your rootViewController
+//            if self.window != nil {
+//                self.window!.rootViewController = rootController
+//            }
+//        }
         
         // FBSDK handle redirects
         return FBSDKApplicationDelegate.sharedInstance()

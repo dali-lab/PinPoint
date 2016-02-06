@@ -9,14 +9,24 @@
 import UIKit
 import Foundation
 import FBSDKLoginKit
+import Firebase
 
 class PhoneNumberViewController: UIViewController {
+    
+    let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
+    var uid: String!
     
     @IBOutlet weak var phoneNumbertextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        let leftNavItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutButtonPressed")
+        navigationItem.leftBarButtonItem = leftNavItem
+        
+        let rightNavItem = UIBarButtonItem(title: "Continue", style: .Plain, target: self, action: "nextButtonPressed")
+        navigationItem.rightBarButtonItem = rightNavItem
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -24,14 +34,18 @@ class PhoneNumberViewController: UIViewController {
         phoneNumbertextField.attributedPlaceholder = NSAttributedString(string:"Phone Number", attributes:[NSForegroundColorAttributeName: PlaceholderColor])
     }
     
-    @IBAction func logoutButtonPressed(sender: AnyObject) {
+    func logoutButtonPressed() {
+        print("Logging out")
         let loginManager = FBSDKLoginManager.init()
         loginManager.logOut()
-        performSegueWithIdentifier("returnHomeSegue", sender: self)
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
-    @IBAction func nextButtonPressed(sender: AnyObject) {
+    func nextButtonPressed() {
         if (checkTextFields()) {
+            var userRef = self.ref.childByAppendingPath("users")
+            userRef = userRef.childByAppendingPath(uid)
+            userRef.updateChildValues(["phone_number": phoneNumbertextField.text!])
             self.performSegueWithIdentifier("basicInfoEnteredSegue", sender: self)
         }
     }
