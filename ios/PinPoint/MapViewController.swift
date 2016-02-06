@@ -10,13 +10,19 @@ import UIKit
 import Foundation
 import Mapbox
 import MapKit
+import Firebase
 
 class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, searchResultDelegate {
+    
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var locationBar: UILabel!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var deliverHereButton: UIButton!
+    
+    let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
+    var uid: String! // user id
+    var pictureURL: String!
     
     var mapView: MGLMapView!
 //    var mapView: MKMapView!
@@ -45,9 +51,35 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         
         UIUtils.styleButton(deliverHereButton, textColor: ThemeText, borderColor: nil, borderWidth: 0, cornerRadius: 0, backgroundColor: ThemeAccent.CGColor)
         
+        // profile picture setup
         let tap = UITapGestureRecognizer(target: self, action: Selector("viewProfile:"))
         profileImage.userInteractionEnabled = true
         profileImage.addGestureRecognizer(tap)
+
+        if let checkedUrl = NSURL(string: pictureURL) {
+            profileImage.contentMode = .ScaleAspectFit
+            downloadImage(checkedUrl)
+        }
+        
+    }
+    
+    func downloadImage(url: NSURL){
+        print("Download Started")
+        print("lastPathComponent: " + (url.lastPathComponent ?? ""))
+        getDataFromUrl(url) { (data, response, error)  in
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                guard let data = data where error == nil else { return }
+                print(response?.suggestedFilename ?? "")
+                print("Download Finished")
+                self.profileImage.image = UIImage(data: data)
+            }
+        }
+    }
+    
+    func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
+        NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
+            completion(data: data, response: response, error: error)
+            }.resume()
     }
     
     func viewProfile(recognizer: UITapGestureRecognizer){

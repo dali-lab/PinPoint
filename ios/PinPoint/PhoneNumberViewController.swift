@@ -15,6 +15,7 @@ class PhoneNumberViewController: UIViewController {
     
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
     var uid: String!
+    var pictureURL: String!
     
     @IBOutlet weak var phoneNumbertextField: UITextField!
     
@@ -46,7 +47,7 @@ class PhoneNumberViewController: UIViewController {
             var userRef = self.ref.childByAppendingPath("users")
             userRef = userRef.childByAppendingPath(uid)
             userRef.updateChildValues(["phone_number": phoneNumbertextField.text!])
-            self.performSegueWithIdentifier("basicInfoEnteredSegue", sender: self)
+            self.performSegueWithIdentifier("basicInfoCompleteSegue", sender: self)
         }
     }
     
@@ -56,6 +57,14 @@ class PhoneNumberViewController: UIViewController {
             return false
         } else {
             return true
+        }
+    }
+    
+    // send uid to next VC
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let destination = segue.destinationViewController as? MapViewController{
+            destination.uid = self.uid
+            destination.pictureURL = self.pictureURL
         }
     }
 }

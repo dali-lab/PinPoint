@@ -15,6 +15,7 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
     var uid: String!
+    var pictureURL: String!
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -82,6 +83,7 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
                 data["name"] = (result["name"] as! String)
                 data["email"] = (result["email"] as! String)
                 
+                // get picture data
                 let pictureRequest = FBSDKGraphRequest(graphPath: "me/picture?type=large&redirect=false", parameters: nil)
                 pictureRequest.startWithCompletionHandler({
                     (connection, result, error: NSError!) -> Void in
@@ -90,7 +92,8 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
                         let result = result as! NSDictionary
                         let pictureData = result["data"] as! NSDictionary
                         print("data result:\n\(pictureData)")
-                        data["picture_large"] = (pictureData["url"] as! String)
+                        data["profile_picture"] = (pictureData["url"] as! String)
+                        self.pictureURL = (pictureData["url"] as! String)
                 
                         // get ref and save
                         let userRef = self.ref.childByAppendingPath("users")
@@ -98,7 +101,7 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
                         userRef.setValue(user)
                         
                         // segue
-                        self.performSegueWithIdentifier("signUpSegue", sender: self)
+                        self.performSegueWithIdentifier("getBasicInfoSegue", sender: self)
                     } else {
                         print("\(error)")
                         // TODO
@@ -112,10 +115,11 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
         })
     }
     
+    // send uid to next VC
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destination = segue.destinationViewController as? PhoneNumberViewController {
             destination.uid = self.uid
+            destination.pictureURL = self.pictureURL
         }
     }
-    
 }

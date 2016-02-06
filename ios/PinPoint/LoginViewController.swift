@@ -15,6 +15,8 @@ import FBSDKLoginKit
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com/")
+    var uid: String!
+    var pictureURL: String!
     
     //viewDidLoad is things you have to do once. viewWillAppear gets called every
     //time the view appears
@@ -58,6 +60,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                         print("Login failed. \(error)")
                     } else {
                         self.loginUser(authData)
+                        self.uid = authData.uid
                     }
             })
         }
@@ -81,8 +84,16 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         let userRef = self.ref.childByAppendingPath("users")
         userRef.queryOrderedByChild("uid").queryEqualToValue(auth.uid).observeEventType(.ChildAdded, withBlock: { snapshot in
             print("logging in: ")
-            print(snapshot)
-            self.performSegueWithIdentifier("loginSegue", sender: self)
+            self.pictureURL = String(snapshot.childSnapshotForPath("profile_picture").value)
+            self.performSegueWithIdentifier("loginCompleteSegue", sender: self)
         })
+    }
+    
+    // send uid to next VC
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let destination = segue.destinationViewController as? MapViewController{
+            destination.uid = self.uid
+            destination.pictureURL = self.pictureURL
+        }
     }
 }
