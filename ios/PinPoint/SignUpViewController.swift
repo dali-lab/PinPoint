@@ -16,6 +16,7 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
     var uid: String!
     var pictureURL: String!
+    var confirmationCode: String!
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -91,9 +92,13 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
                         // get picture data
                         let result = result as! NSDictionary
                         let pictureData = result["data"] as! NSDictionary
-                        print("data result:\n\(pictureData)")
+//                        print("data result:\n\(pictureData)")
                         data["profile_picture"] = (pictureData["url"] as! String)
                         self.pictureURL = (pictureData["url"] as! String)
+                        
+                        let code = String(arc4random_uniform(UInt32(9000)) + 1000)
+                        data["confirmation_code"] = code
+                        self.confirmationCode = code
                 
                         // get ref and save
                         let userRef = self.ref.childByAppendingPath("users")
@@ -115,11 +120,12 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
         })
     }
     
-    // send uid to next VC
+    // send user info to next VC
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destination = segue.destinationViewController as? PhoneNumberViewController {
             destination.uid = self.uid
             destination.pictureURL = self.pictureURL
+            destination.confirmationCode = self.confirmationCode
         }
     }
 }

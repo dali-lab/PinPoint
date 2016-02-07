@@ -16,6 +16,7 @@ class PhoneNumberViewController: UIViewController {
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
     var uid: String!
     var pictureURL: String!
+    var confirmationCode: String!
     
     @IBOutlet weak var phoneNumbertextField: UITextField!
     
@@ -43,12 +44,44 @@ class PhoneNumberViewController: UIViewController {
     }
     
     func nextButtonPressed() {
-        if (checkTextFields()) {
-            var userRef = self.ref.childByAppendingPath("users")
-            userRef = userRef.childByAppendingPath(uid)
-            userRef.updateChildValues(["phone_number": phoneNumbertextField.text!])
-            self.performSegueWithIdentifier("basicInfoCompleteSegue", sender: self)
+        // Use your own details here
+        var keys: NSDictionary?
+        if let path = NSBundle.mainBundle().pathForResource("twilio_keys", ofType: "plist") {
+            keys = NSDictionary(contentsOfFile: path)
         }
+        if let _ = keys {
+            let twilioSID  = keys?["twilioSID"] as! String
+            let twilioSecret = keys?["twilioSecret"] as! String
+            let fromNumber = "19784714165"
+            let toNumber = phoneNumbertextField.text as String!
+            let message = "Your confirmation number is \(self.confirmationCode)"
+            
+            // Build the request
+            let request = NSMutableURLRequest(URL: NSURL(string:"https://\(twilioSID):\(twilioSecret)@api.twilio.com/2010-04-01/Accounts/\(twilioSID)/SMS/Messages")!)
+            request.HTTPMethod = "POST"
+            request.HTTPBody = "From=\(fromNumber)&To=\(toNumber)&Body=\(message)".dataUsingEncoding(NSUTF8StringEncoding)
+            
+            // Build the completion block and send the request
+            NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data, response, error) in
+                print("Finished")
+                if let data = data, _ = NSString(data: data, encoding: NSUTF8StringEncoding) {
+                    // Success
+                    print("Successfully sent Twilio POST request")
+//                    print("Response: \(responseDetails)")
+                } else {
+                    // Failure
+                    print("Error: \(error)")
+                    //TODO
+                }
+            }).resume()
+            self.performSegueWithIdentifier("basicInfoEnteredSegue", sender: self)
+        }
+//        if (checkTextFields()) {
+//            var userRef = self.ref.childByAppendingPath("users")
+//            userRef = userRef.childByAppendingPath(uid)
+//            userRef.updateChildValues(["phone_number": phoneNumbertextField.text!])
+//            self.performSegueWithIdentifier("basicInfoCompleteSegue", sender: self)
+//        }
     }
     
     func checkTextFields() -> Bool {
@@ -62,9 +95,10 @@ class PhoneNumberViewController: UIViewController {
     
     // send uid to next VC
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destination = segue.destinationViewController as? MapViewController{
+        if let destination = segue.destinationViewController as? ConfirmPhoneNumberViewController {
             destination.uid = self.uid
             destination.pictureURL = self.pictureURL
+            destination.confirmationCode = self.confirmationCode
         }
     }
 }

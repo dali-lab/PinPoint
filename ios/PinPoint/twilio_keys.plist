@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>twilioSID</key>
+	<string>AC537de62a21fdf2fdc921c5268e9314c6</string>
+	<key>twilioSecret</key>
+	<string>b65662945fe31734b3013c64f22a4369</string>
+</dict>
+</plist>
