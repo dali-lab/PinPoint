@@ -6,3 +6,4 @@ pod 'FBSDKLoginKit', :inhibit_warnings => true
 pod 'FBSDKShareKit', :inhibit_warnings => true
 pod 'Stripe'
 pod 'Mapbox-iOS-SDK'
+pod 'TwilioSDK', '~>1.2'

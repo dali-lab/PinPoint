@@ -16,6 +16,7 @@ PODS:
   - Stripe (6.1.0):
     - Stripe/Core (= 6.1.0)
   - Stripe/Core (6.1.0)
+  - TwilioSDK (1.2.7)
 
 DEPENDENCIES:
   - FBSDKCoreKit
@@ -24,6 +25,7 @@ DEPENDENCIES:
   - Firebase (>= 2.5.0)
   - Mapbox-iOS-SDK
   - Stripe
+  - TwilioSDK (~> 1.2)
 
 SPEC CHECKSUMS:
   Bolts: f52a250053bb517ca874523c3913776359ab3def
@@ -33,5 +35,6 @@ SPEC CHECKSUMS:
   Firebase: 744617c0733b45198f9486ebd5cac64ec2d10d79
   Mapbox-iOS-SDK: 61e79f3dd8432617bd1a66b2d7273ab5ce923ca9
   Stripe: bee87bf3459953211b9a3709fb3b90a90a62b060
+  TwilioSDK: d3982acf6880ddf3ce57c4444e021a71c5f35653
 
 COCOAPODS: 0.39.0
