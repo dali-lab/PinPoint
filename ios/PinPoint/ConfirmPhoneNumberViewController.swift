@@ -37,10 +37,14 @@ class ConfirmPhoneNumberViewController: UIViewController {
                 print("Confirmation code successful")
                 performSegueWithIdentifier("phoneNumberConfirmedSegue", sender: self)
             } else {
-                //TODO
+                // TODO need to display some more stuff
+                confirmationCodeTextField.text = ""
+                confirmationCodeTextField.attributedPlaceholder = NSAttributedString(string:"Confirmation Number", attributes:[NSForegroundColorAttributeName: ThemeAccent])
             }
         } else {
-            //TODO
+            // TODO need to display some more stuff
+            confirmationCodeTextField.text = ""
+            confirmationCodeTextField.attributedPlaceholder = NSAttributedString(string:"Confirmation Number", attributes:[NSForegroundColorAttributeName: ThemeAccent])
         }
     }
     
