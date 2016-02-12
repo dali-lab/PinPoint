@@ -15,7 +15,6 @@ import SlideMenuControllerSwift
 
 class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, SearchResultDelegate{
     
-    
     @IBOutlet weak var searchButton: UIImageView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var locationBar: UILabel!
@@ -35,7 +34,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         super.viewDidLoad();
         
         navigationController?.navigationBar.hidden = true;
-        navigationController?.hidesBarsOnSwipe = true;
+//        navigationController?.hidesBarsOnSwipe = true;
         
         initMapView()
         
@@ -45,41 +44,55 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         searchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchViewController") as! SearchLocationViewController
         searchViewController.delegate = self
         
-        UIUtils.styleImage(profileImage, borderColor: ThemeAccent.CGColor, borderWidth: BorderWidth, cornerRadius: profileImage.frame.height/2)
+        profileImage.layer.borderColor = ThemeAccent.CGColor
+        profileImage.layer.borderWidth = BorderWidth
+        profileImage.layer.cornerRadius = profileImage.frame.height/2
+        profileImage.clipsToBounds = true
         
+        // TODO corner radius
+        locationBar.backgroundColor = ThemeAccent
+        locationBar.textColor = ThemeText
+        locationBar.layer.backgroundColor = ThemeAccent.CGColor
         
-        UIUtils.styleButton(deliverHereButton, textColor: ThemeText, borderColor: nil, borderWidth: 0, cornerRadius: 0, backgroundColor: ThemeAccent.CGColor)
+        deliverHereButton.layer.borderColor = ThemeAccent.CGColor
+        deliverHereButton.layer.borderWidth = BorderWidth
+        deliverHereButton.layer.cornerRadius = CornerRadius
+        deliverHereButton.layer.backgroundColor = ThemeAccent.CGColor
+        deliverHereButton.clipsToBounds = true
         
 
-        if let checkedUrl = NSURL(string: user.pictureURL) {
-            profileImage.contentMode = .ScaleAspectFit
-            downloadImage(checkedUrl)
+        // TODO better picture url fetch; put in db
+        if let url = user.pictureURL {
+            if let checkedUrl = NSURL(string: url) {
+                profileImage.contentMode = .ScaleAspectFit
+                downloadImage(checkedUrl)
+            }
         }
         
-        
         // profile picture setup
-        var singleTap = UITapGestureRecognizer(target: self, action:"profileImagePressed")
-        singleTap.numberOfTapsRequired = 1
+        let profileTap = UITapGestureRecognizer(target: self, action:"profileImagePressed")
         profileImage.userInteractionEnabled = true
-        profileImage.addGestureRecognizer(singleTap)
+        profileImage.addGestureRecognizer(profileTap)
         
         // search button setup
-        singleTap = UITapGestureRecognizer(target: self, action:"searchButtonPressed")
+        let searchTap = UITapGestureRecognizer(target: self, action:"searchButtonPressed")
         searchButton.userInteractionEnabled = true
-        searchButton.addGestureRecognizer(singleTap)
+        searchButton.addGestureRecognizer(searchTap)
     }
     
     override func awakeFromNib() {
+        super.awakeFromNib()
 //        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("Map") {
 //            self.slideMenuController()?.mainViewController = controller
 //        }
         if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileSlideOut") {
             self.slideMenuController()?.leftViewController = controller
         }
-        super.awakeFromNib()
     }
     
+    // respond to profile image press
     func profileImagePressed() {
+        print("Showing slide out menu")
         self.slideMenuController()?.openLeft()
     }
     
@@ -136,10 +149,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
             locationManager.startUpdatingLocation()
         }
     }
-    
-//    func mapView(mapView: MKMapView, annotationCanShowCallout annotation: MKAnnotation) -> Bool {
-//        return true
-//    }
     
     func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         return true

@@ -97,6 +97,5 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.presentViewController(slideMenuController, animated: false, completion: nil)
 //        self.window?.rootViewController = slideMenuController
 //        self.window?.makeKeyAndVisible()
- 
     }
 }

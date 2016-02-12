@@ -21,6 +21,8 @@ class ConfirmPhoneNumberViewController: UIViewController {
         
         let rightNavItem = UIBarButtonItem(title: "Confirm", style: .Plain, target: self, action: "confirmConfirmationNumber")
         navigationItem.rightBarButtonItem = rightNavItem
+        
+        self.navigationItem.title = "Verify Phone Number"
     }
     
     override func viewWillAppear(animated: Bool) {

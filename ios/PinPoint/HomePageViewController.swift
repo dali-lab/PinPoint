@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import FBSDKLoginKit
+import SlideMenuControllerSwift
 
 class HomePageViewController: UIViewController {
     
@@ -27,14 +28,35 @@ class HomePageViewController: UIViewController {
         
         view.sendSubviewToBack(backgroundImage)
         
-        UIUtils.styleButton(loginButton, textColor: ThemeText, borderColor: ThemeText.CGColor, borderWidth: BorderWidth, cornerRadius: CornerRadius, backgroundColor: nil)
+        loginButton.setTitleColor(ThemeText, forState: .Normal)
+        loginButton.layer.borderColor = ThemeText.CGColor
+        loginButton.layer.borderWidth = BorderWidth
+        loginButton.layer.cornerRadius = CornerRadius
+        loginButton.clipsToBounds = true
         
-        UIUtils.styleButton(signUpButton, textColor: ThemeText, borderColor: ThemeAccent.CGColor, borderWidth: BorderWidth, cornerRadius: CornerRadius, backgroundColor: ThemeAccent.CGColor)
+        signUpButton.setTitleColor(ThemeText, forState: .Normal)
+        signUpButton.layer.borderColor = ThemeAccent.CGColor
+        signUpButton.layer.borderWidth = BorderWidth
+        signUpButton.layer.cornerRadius = CornerRadius
+        signUpButton.layer.backgroundColor = ThemeAccent.CGColor
+        signUpButton.clipsToBounds = true
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.hidden = true;
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Slide menu controller setup
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let leftViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSlideOut") as! ProfileSlideOutViewController
+        let mainViewController = storyboard.instantiateViewControllerWithIdentifier("Map") as! MapViewController
+        let rightViewController = UIViewController()
+        let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+        self.presentViewController(slideMenuController, animated: false, completion: nil)
+//        self.window?.rootViewController = slideMenuController
+//        self.window?.makeKeyAndVisible()
     }
 }

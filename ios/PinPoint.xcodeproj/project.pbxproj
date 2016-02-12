@@ -17,7 +17,6 @@
 		891C6B9A1C66EFF800694ACD /* ConfirmPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891C6B991C66EFF800694ACD /* ConfirmPhoneNumberViewController.swift */; };
 		893EA96D1C653B7C0071527E /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA96C1C653B7C0071527E /* HomePageViewController.swift */; };
 		893EA96F1C653F460071527E /* PinPointConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA96E1C653F460071527E /* PinPointConstants.swift */; };
-		893EA9721C654CB30071527E /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA9711C654CB30071527E /* UIUtils.swift */; };
 		893EA9741C6555230071527E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA9731C6555230071527E /* SignUpViewController.swift */; };
 		899982BA1C5F24F30018C3C9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 899982B91C5F24F30018C3C9 /* Settings.bundle */; };
 		899D81A21C5C2353003C2C56 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899D81A11C5C2353003C2C56 /* LoginViewController.swift */; };
@@ -62,7 +61,6 @@
 		891C6B991C66EFF800694ACD /* ConfirmPhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmPhoneNumberViewController.swift; sourceTree = "<group>"; };
 		893EA96C1C653B7C0071527E /* HomePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		893EA96E1C653F460071527E /* PinPointConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinPointConstants.swift; sourceTree = "<group>"; };
-		893EA9711C654CB30071527E /* UIUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		893EA9731C6555230071527E /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		899982B91C5F24F30018C3C9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		899D81A11C5C2353003C2C56 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -115,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				893EA96E1C653F460071527E /* PinPointConstants.swift */,
-				893EA9711C654CB30071527E /* UIUtils.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -441,7 +438,6 @@
 				891188F21C6D90450040D903 /* ProfileSlideOutViewController.swift in Sources */,
 				899D81A21C5C2353003C2C56 /* LoginViewController.swift in Sources */,
 				89A204CC1C5F196D002E609D /* OrderInProgressViewController.swift in Sources */,
-				893EA9721C654CB30071527E /* UIUtils.swift in Sources */,
 				893EA9741C6555230071527E /* SignUpViewController.swift in Sources */,
 				893EA96F1C653F460071527E /* PinPointConstants.swift in Sources */,
 				89D80DD21C5842DF00BB7C59 /* AppDelegate.swift in Sources */,

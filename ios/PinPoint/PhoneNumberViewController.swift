@@ -25,7 +25,8 @@ class PhoneNumberViewController: UIViewController {
         navigationItem.leftBarButtonItem = leftNavItem
         let rightNavItem = UIBarButtonItem(title: "Continue", style: .Plain, target: self, action: "nextButtonPressed")
         navigationItem.rightBarButtonItem = rightNavItem
-
+        
+        self.navigationItem.title = "Add Phone Number"
     }
     
     override func viewWillAppear(animated: Bool) {
