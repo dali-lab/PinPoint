@@ -82,16 +82,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         let userRef = self.ref.childByAppendingPath("users")
         userRef.queryOrderedByChild("uid").queryEqualToValue(auth.uid).observeEventType(.ChildAdded, withBlock: { snapshot in
             print("logging in: ")
-            self.pictureURL = String(snapshot.childSnapshotForPath("profile_picture").value)
+            UserManager.user.pictureURL = String(snapshot.childSnapshotForPath("profile_picture").value)
             self.performSegueWithIdentifier("loginCompleteSegue", sender: self)
         })
-    }
-    
-    // send uid to next VC
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let _ = segue.destinationViewController as? MapViewController{
-            UserManager.user.uid = self.uid
-            UserManager.user.pictureURL = self.pictureURL
-        }
     }
 }
