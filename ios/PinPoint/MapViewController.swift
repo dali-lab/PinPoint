@@ -11,8 +11,9 @@ import Foundation
 import Mapbox
 import MapKit
 import Firebase
+import SlideMenuControllerSwift
 
-class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, searchResultDelegate {
+class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, SearchResultDelegate{
     
     
     @IBOutlet weak var profileImage: UIImageView!
@@ -60,6 +61,25 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
             downloadImage(checkedUrl)
         }
         
+        
+        let singleTap = UITapGestureRecognizer(target: self, action:"profileImagePressed")
+        singleTap.numberOfTapsRequired = 1
+        profileImage.userInteractionEnabled = true
+        profileImage.addGestureRecognizer(singleTap)
+    }
+    
+    override func awakeFromNib() {
+//        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("Map") {
+//            self.slideMenuController()?.mainViewController = controller
+//        }
+        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileSlideOut") {
+            self.slideMenuController()?.leftViewController = controller
+        }
+        super.awakeFromNib()
+    }
+    
+    func profileImagePressed() {
+        self.slideMenuController()?.openLeft()
     }
     
     func downloadImage(url: NSURL){

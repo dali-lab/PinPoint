@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import Firebase
 import FBSDKLoginKit
-
+import SlideMenuControllerSwift
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
@@ -85,5 +85,18 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             UserManager.user.pictureURL = String(snapshot.childSnapshotForPath("profile_picture").value)
             self.performSegueWithIdentifier("loginCompleteSegue", sender: self)
         })
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Slide menu controller setup
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let leftViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSlideOut") as! ProfileSlideOutViewController
+        let mainViewController = storyboard.instantiateViewControllerWithIdentifier("Map") as! MapViewController
+        let rightViewController = UIViewController()
+        let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+        self.presentViewController(slideMenuController, animated: false, completion: nil)
+//        self.window?.rootViewController = slideMenuController
+//        self.window?.makeKeyAndVisible()
+ 
     }
 }

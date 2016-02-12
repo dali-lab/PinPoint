@@ -17,7 +17,7 @@ class SearchLocationViewController: UITableViewController {
     var searchResults = [CLPlacemark]()
     var timer: NSTimer!
     var currentSearchText: String!
-    var delegate = searchResultDelegate!()
+    var delegate = SearchResultDelegate!()
     
     let searchController = UISearchController(searchResultsController: nil)
 
@@ -109,13 +109,14 @@ class SearchLocationViewController: UITableViewController {
     
 }
 
+// search bar delegate
 extension SearchLocationViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         startTimerForSearch(searchController.searchBar.text!)
     }
 }
 
-// what does this do?
-protocol searchResultDelegate {
+// delegate
+protocol SearchResultDelegate {
     func searchResultSelected(sender: AnyObject)
 }

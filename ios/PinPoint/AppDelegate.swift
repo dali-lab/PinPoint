@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import Stripe
 import CoreLocation
+import SlideMenuControllerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -39,13 +40,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            
 //            // instantiate the desired ViewController
 //            // TODO this should only be done if we have the user's basic info
-//            let rootController = storyboard.instantiateViewControllerWithIdentifier("MapView")
+//            let rootController = storyboard.instantiateViewControllerWithIdentifier("Map")
 //            
 //            // Because self.window is an optional you should check it's value first and assign your rootViewController
 //            if self.window != nil {
 //                self.window!.rootViewController = rootController
 //            }
 //        }
+        
+//        // Slide menu controller setup
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let leftViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSlideOut") as! ProfileSlideOutViewController
+//        let mainViewController = storyboard.instantiateViewControllerWithIdentifier("Map") as! MapViewController
+//        let rightViewController = UIViewController()
+//        let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+//        self.window?.rootViewController = slideMenuController
+//        self.window?.makeKeyAndVisible()
+// 
         
         // FBSDK handle redirects
         return FBSDKApplicationDelegate.sharedInstance()

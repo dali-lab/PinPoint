@@ -10,6 +10,7 @@
 		37603C1BF8D46D7EDA494A69 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D340505B890DABBE29E0E1 /* Pods.framework */; };
 		891188EE1C6D7DEC0040D903 /* ResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 891188ED1C6D7DEC0040D903 /* ResultCell.xib */; };
 		891188F01C6D88E00040D903 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891188EF1C6D88E00040D903 /* UserManager.swift */; };
+		891188F21C6D90450040D903 /* ProfileSlideOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891188F11C6D90450040D903 /* ProfileSlideOutViewController.swift */; };
 		891443DB1C5D85E000F7A4A6 /* PhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891443DA1C5D85E000F7A4A6 /* PhoneNumberViewController.swift */; };
 		891443DD1C5D8FE700F7A4A6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891443DC1C5D8FE700F7A4A6 /* MapViewController.swift */; };
 		891C6B981C66E5FC00694ACD /* twilio_keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 891C6B971C66E5FB00694ACD /* twilio_keys.plist */; };
@@ -54,6 +55,7 @@
 		6D7C27C280F9B7FF9CF71FEE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		891188ED1C6D7DEC0040D903 /* ResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResultCell.xib; sourceTree = "<group>"; };
 		891188EF1C6D88E00040D903 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		891188F11C6D90450040D903 /* ProfileSlideOutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSlideOutViewController.swift; sourceTree = "<group>"; };
 		891443DA1C5D85E000F7A4A6 /* PhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewController.swift; sourceTree = "<group>"; };
 		891443DC1C5D8FE700F7A4A6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		891C6B971C66E5FB00694ACD /* twilio_keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = twilio_keys.plist; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				89C4EC921C6043CD002640FD /* ResultTableViewCell.swift */,
 				89C4EC941C604ABF002640FD /* LocationUtils.swift */,
 				891188ED1C6D7DEC0040D903 /* ResultCell.xib */,
+				891188F11C6D90450040D903 /* ProfileSlideOutViewController.swift */,
 			);
 			name = Map/Search;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				89C4EC931C6043CD002640FD /* ResultTableViewCell.swift in Sources */,
 				891188F01C6D88E00040D903 /* UserManager.swift in Sources */,
 				893EA96D1C653B7C0071527E /* HomePageViewController.swift in Sources */,
+				891188F21C6D90450040D903 /* ProfileSlideOutViewController.swift in Sources */,
 				899D81A21C5C2353003C2C56 /* LoginViewController.swift in Sources */,
 				89A204CC1C5F196D002E609D /* OrderInProgressViewController.swift in Sources */,
 				893EA9721C654CB30071527E /* UIUtils.swift in Sources */,
