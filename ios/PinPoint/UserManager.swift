@@ -6,6 +6,7 @@
 //  Copyright © 2016 DALI. All rights reserved.
 //
 
+import MapKit
 
 class UserManager {
     static let user = UserManager()
@@ -13,5 +14,6 @@ class UserManager {
     var uid: String!
     var pictureURL: String!
     var confirmationCode: String!
+    var location: CLLocationCoordinate2D!
     
 }

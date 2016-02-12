@@ -132,7 +132,7 @@
 			name = Home/Login/Setup;
 			sourceTree = "<group>";
 		};
-		89C4EC911C600E37002640FD /* Map/Search */ = {
+		89C4EC911C600E37002640FD /* Map */ = {
 			isa = PBXGroup;
 			children = (
 				89C4EC8F1C600E2D002640FD /* SearchLocationViewController.swift */,
@@ -142,7 +142,7 @@
 				891188ED1C6D7DEC0040D903 /* ResultCell.xib */,
 				891188F11C6D90450040D903 /* ProfileSlideOutViewController.swift */,
 			);
-			name = Map/Search;
+			name = Map;
 			sourceTree = "<group>";
 		};
 		89F5B8761C4AE10900BF4F4B = {
@@ -176,11 +176,10 @@
 				89F5B88E1C4AE10900BF4F4B /* Info.plist */,
 				89F5B88B1C4AE10900BF4F4B /* LaunchScreen.storyboard */,
 				89F5B8861C4AE10900BF4F4B /* Main.storyboard */,
-				89C4EC911C600E37002640FD /* Map/Search */,
+				89C4EC911C600E37002640FD /* Map */,
 				89A204CB1C5F196D002E609D /* OrderInProgressViewController.swift */,
-				899982B91C5F24F30018C3C9 /* Settings.bundle */,
+				89FE5FE01C6DAB600061A81E /* Settings */,
 				893EA9701C654CA80071527E /* UI */,
-				891C6B971C66E5FB00694ACD /* twilio_keys.plist */,
 				891188EF1C6D88E00040D903 /* UserManager.swift */,
 			);
 			path = PinPoint;
@@ -202,6 +201,15 @@
 				89F5B8A41C4AE10900BF4F4B /* Info.plist */,
 			);
 			path = PinPointUITests;
+			sourceTree = "<group>";
+		};
+		89FE5FE01C6DAB600061A81E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				899982B91C5F24F30018C3C9 /* Settings.bundle */,
+				891C6B971C66E5FB00694ACD /* twilio_keys.plist */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		BF848B0C3A0CF01C1D39BB3D /* Pods */ = {

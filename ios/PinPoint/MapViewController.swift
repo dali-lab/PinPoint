@@ -16,9 +16,9 @@ import SlideMenuControllerSwift
 class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, SearchResultDelegate{
     
     
+    @IBOutlet weak var searchButton: UIImageView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var locationBar: UILabel!
-    @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var deliverHereButton: UIButton!
     
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
@@ -28,7 +28,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
 //    var mapView: MKMapView!
     let locationManager = CLLocationManager()
     let defaultCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 43.705435, longitude: -72.2891243) // Baker librry
-    var currCoordinate: CLLocationCoordinate2D!
     var gotUserLocation = false
     var searchViewController: SearchLocationViewController!
     
@@ -41,7 +40,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         initMapView()
         
         // set default location; should probably do this better/differently
-        currCoordinate = defaultCoordinate
+        UserManager.user.location = defaultCoordinate
         
         searchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchViewController") as! SearchLocationViewController
         searchViewController.delegate = self
@@ -51,10 +50,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         
         UIUtils.styleButton(deliverHereButton, textColor: ThemeText, borderColor: nil, borderWidth: 0, cornerRadius: 0, backgroundColor: ThemeAccent.CGColor)
         
-        // profile picture setup
-        let tap = UITapGestureRecognizer(target: self, action: Selector("viewProfile:"))
-        profileImage.userInteractionEnabled = true
-        profileImage.addGestureRecognizer(tap)
 
         if let checkedUrl = NSURL(string: user.pictureURL) {
             profileImage.contentMode = .ScaleAspectFit
@@ -62,10 +57,16 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         }
         
         
-        let singleTap = UITapGestureRecognizer(target: self, action:"profileImagePressed")
+        // profile picture setup
+        var singleTap = UITapGestureRecognizer(target: self, action:"profileImagePressed")
         singleTap.numberOfTapsRequired = 1
         profileImage.userInteractionEnabled = true
         profileImage.addGestureRecognizer(singleTap)
+        
+        // search button setup
+        singleTap = UITapGestureRecognizer(target: self, action:"searchButtonPressed")
+        searchButton.userInteractionEnabled = true
+        searchButton.addGestureRecognizer(singleTap)
     }
     
     override func awakeFromNib() {
@@ -109,7 +110,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         setLocation()
     }
     
-    @IBAction func searchButton(sender: AnyObject) {
+    func searchButtonPressed() {
         self.presentViewController(searchViewController, animated: true, completion: nil) //TODO completion
     }
     
@@ -151,20 +152,20 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     func searchResultSelected(sender: AnyObject) {
         let cell = sender as! ResultTableViewCell
-        currCoordinate = cell.placemark.location?.coordinate
+        UserManager.user.location = cell.placemark.location?.coordinate
         setLocation()
     }
     
     // Set location for top bar, map center
     func setLocation() {
         // update top bar
-        let location: CLLocation = CLLocation(latitude: currCoordinate.latitude, longitude: currCoordinate.longitude)
+        let location: CLLocation = CLLocation(latitude: UserManager.user.location.latitude, longitude: UserManager.user.location.longitude)
         LocationUtils.reverseGeocoding(location, completion: updateResultBar)
         
         // update map location by setting center coordinate
         mapView.setCenterCoordinate(CLLocationCoordinate2D(
-            latitude: currCoordinate.latitude,
-            longitude: currCoordinate.longitude),
+            latitude: UserManager.user.location.latitude,
+            longitude: UserManager.user.location.longitude),
             zoomLevel: 16,
             animated: false)
 //        mapView.setCenterCoordinate(CLLocationCoordinate2D(
@@ -172,8 +173,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
 //            longitude: currCoordinate.longitude),
 //            animated: false)
         
-        let lat = String(format: "%f", arguments: [currCoordinate.latitude])
-        let long = String(format: "%f", arguments: [currCoordinate.longitude])
+        let lat = String(format: "%f", arguments: [UserManager.user.location.latitude])
+        let long = String(format: "%f", arguments: [UserManager.user.location.longitude])
         print("set map location = \(lat) \(long)")
     }
     
@@ -185,7 +186,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // TODO manager not nil?
         if (!gotUserLocation) {
-            self.currCoordinate = manager.location!.coordinate
+            UserManager.user.location = manager.location!.coordinate
             setLocation()
             gotUserLocation = true
             locationManager.stopUpdatingLocation()
@@ -195,6 +196,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     // get screen center point
     func getScreenCenterPoint() {
         let centerScreenPoint: CGPoint = mapView.convertCoordinate(mapView.centerCoordinate, toPointToView: mapView)
-        currCoordinate = mapView.convertPoint(centerScreenPoint, toCoordinateFromView: mapView)
+        UserManager.user.location = mapView.convertPoint(centerScreenPoint, toCoordinateFromView: mapView)
     }
 }
