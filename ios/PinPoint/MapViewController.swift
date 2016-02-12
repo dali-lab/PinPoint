@@ -21,8 +21,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     @IBOutlet weak var deliverHereButton: UIButton!
     
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
-    var uid: String! // user id
-    var pictureURL: String!
+    let user = UserManager.user
     
     var mapView: MGLMapView!
 //    var mapView: MKMapView!
@@ -56,7 +55,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         profileImage.userInteractionEnabled = true
         profileImage.addGestureRecognizer(tap)
 
-        if let checkedUrl = NSURL(string: pictureURL) {
+        if let checkedUrl = NSURL(string: user.pictureURL) {
             profileImage.contentMode = .ScaleAspectFit
             downloadImage(checkedUrl)
         }
@@ -64,13 +63,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     }
     
     func downloadImage(url: NSURL){
-        print("Download Started")
-        print("lastPathComponent: " + (url.lastPathComponent ?? ""))
+        print("attempting to download image: " + (url.lastPathComponent ?? ""))
         getDataFromUrl(url) { (data, response, error)  in
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 guard let data = data where error == nil else { return }
-                print(response?.suggestedFilename ?? "")
-                print("Download Finished")
+                print("downloaded profile image: " + (response?.suggestedFilename)!)
                 self.profileImage.image = UIImage(data: data)
             }
         }

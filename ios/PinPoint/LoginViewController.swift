@@ -15,8 +15,6 @@ import FBSDKLoginKit
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com/")
-    var uid: String!
-    var pictureURL: String!
     
     //viewDidLoad is things you have to do once. viewWillAppear gets called every
     //time the view appears
@@ -60,7 +58,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                         print("Login failed. \(error)")
                     } else {
                         self.loginUser(authData)
-                        self.uid = authData.uid
+                        UserManager.user.uid = authData.uid
                     }
             })
         }
@@ -68,7 +66,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     // Facebook Delegate Method
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        print("User logged out of facebook")
+        print("Logged out of Facebook")
     }
     
     //get the user
@@ -91,9 +89,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     // send uid to next VC
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destination = segue.destinationViewController as? MapViewController{
-            destination.uid = self.uid
-            destination.pictureURL = self.pictureURL
+        if let _ = segue.destinationViewController as? MapViewController{
+            UserManager.user.uid = self.uid
+            UserManager.user.pictureURL = self.pictureURL
         }
     }
 }

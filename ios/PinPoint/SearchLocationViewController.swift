@@ -10,23 +10,30 @@ import UIKit
 import Foundation
 import Mapbox //needed?
 
-class SearchLocationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SearchLocationViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UITextField!
-    @IBOutlet weak var tableView: UITableView!
     
     var searchResults = [CLPlacemark]()
     var timer: NSTimer!
     var currentSearchText: String!
     var delegate = searchResultDelegate!()
     
+    let searchController = UISearchController(searchResultsController: nil)
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
-        tableView.addSubview(refreshControl)
-        tableView.delegate = self
-        tableView.dataSource = self
+        
+        let nib = UINib(nibName: "ResultCell", bundle: nil)
+        tableView.registerNib(nib, forCellReuseIdentifier: "cell")
+        
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
+        
+        navigationController?.navigationBarHidden = false
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -34,13 +41,13 @@ class SearchLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     // table view data source- number of rows
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResults.count
     }
     
     // table view data source- cell at index; decode placemark and create the cell
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ResultCell", forIndexPath: indexPath) as! ResultTableViewCell
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! ResultTableViewCell
         let placemark = searchResults[indexPath.row]
         cell.placemark = placemark
         cell.resultText.text = LocationUtils.addressFromPlacemark(placemark)
@@ -48,12 +55,12 @@ class SearchLocationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     // table view data source
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
     // table view delegate- cell selection
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("clicked" + String(indexPath))
         if (self.delegate != nil) {
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
@@ -68,22 +75,22 @@ class SearchLocationViewController: UIViewController, UITableViewDelegate, UITab
         refreshControl.endRefreshing()
     }
     
-    // text field changed so search and update search results
-    @IBAction func textFieldChanged(sender: AnyObject) {
-        currentSearchText = searchBar.text!
-        if let timer = timer {
+    // execute forward geocoding search when user stops typing
+    func startTimerForSearch(searchText: String) {
+        if let timer = timer { // stop old timer
             timer.invalidate()
         }
-        if (currentSearchText.characters.count != 0) {
-            timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "getAddressFromSearch", userInfo: nil, repeats: false)
-        } else {
+        if (searchText.characters.count != 0) { // set new timer
+            currentSearchText = searchText
+            timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "startSearch", userInfo: nil, repeats: false)
+        } else { // no characters so clear table
             searchResults.removeAll()
             tableView.reloadData()
         }
     }
     
-    // execute forward geocoding search when user stops typing
-    func getAddressFromSearch() {
+    // start the forward geocoding search
+    func startSearch() {
         print("executing forward search on " + currentSearchText)
         LocationUtils.forwardGeocoding(currentSearchText, completion: updateSearchResults)
     }
@@ -91,9 +98,7 @@ class SearchLocationViewController: UIViewController, UITableViewDelegate, UITab
     // update the view presented to the user
     func updateSearchResults(placemarks: [CLPlacemark]) {
         searchResults.removeAll()
-        for placemark in placemarks {
-            searchResults.append(placemark)
-        }
+        searchResults.appendContentsOf(placemarks)
         tableView.reloadData()
     }
     
@@ -104,6 +109,13 @@ class SearchLocationViewController: UIViewController, UITableViewDelegate, UITab
     
 }
 
+extension SearchLocationViewController: UISearchResultsUpdating {
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        startTimerForSearch(searchController.searchBar.text!)
+    }
+}
+
+// what does this do?
 protocol searchResultDelegate {
     func searchResultSelected(sender: AnyObject)
 }

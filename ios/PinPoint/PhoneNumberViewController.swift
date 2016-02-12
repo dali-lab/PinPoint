@@ -14,16 +14,13 @@ import Firebase
 class PhoneNumberViewController: UIViewController {
     
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
-    var uid: String!
-    var pictureURL: String!
-    var confirmationCode: String!
     
     @IBOutlet weak var phoneNumbertextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        // setup nav bar items
+        // setup custom nav bar items
         let leftNavItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutButtonPressed")
         navigationItem.leftBarButtonItem = leftNavItem
         let rightNavItem = UIBarButtonItem(title: "Continue", style: .Plain, target: self, action: "nextButtonPressed")
@@ -39,11 +36,11 @@ class PhoneNumberViewController: UIViewController {
         
         // get new confirmation code
         let code = String(arc4random_uniform(UInt32(9000)) + 1000)
-        self.confirmationCode = code
+        UserManager.user.confirmationCode = code
         
         // update confirmation code in database
         var userRef = self.ref.childByAppendingPath("users")
-        userRef = userRef.childByAppendingPath(uid)
+        userRef = userRef.childByAppendingPath(UserManager.user.uid)
         userRef.updateChildValues(["confirmation_code": code])
         
     }
@@ -59,7 +56,7 @@ class PhoneNumberViewController: UIViewController {
     func nextButtonPressed() {
         if (checkTextFields()) {
             var userRef = self.ref.childByAppendingPath("users")
-            userRef = userRef.childByAppendingPath(uid)
+            userRef = userRef.childByAppendingPath(UserManager.user.uid)
             userRef.updateChildValues(["phone_number": phoneNumbertextField.text!])
             
             // build Twilio POST request
@@ -72,7 +69,7 @@ class PhoneNumberViewController: UIViewController {
                 let twilioSecret = keys?["twilioSecret"] as! String
                 let fromNumber = "19784714165"
                 let toNumber = phoneNumbertextField.text as String!
-                let message = "Your confirmation number is \(self.confirmationCode)"
+                let message = "Your confirmation number is \(UserManager.user.confirmationCode)"
                 
                 // Build the request
                 let request = NSMutableURLRequest(URL: NSURL(string:"https://\(twilioSID):\(twilioSecret)@api.twilio.com/2010-04-01/Accounts/\(twilioSID)/SMS/Messages")!)
@@ -106,15 +103,6 @@ class PhoneNumberViewController: UIViewController {
             return false
         } else {
             return true
-        }
-    }
-    
-    // send uid to next VC
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destination = segue.destinationViewController as? ConfirmPhoneNumberViewController {
-            destination.uid = self.uid
-            destination.pictureURL = self.pictureURL
-            destination.confirmationCode = self.confirmationCode
         }
     }
 }

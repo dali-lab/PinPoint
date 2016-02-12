@@ -19,6 +19,12 @@ class HomePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        // user already logged in
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            print("User already logged in with Facebook")
+            performSegueWithIdentifier("toMapSegue", sender: self)
+        }
+        
         view.sendSubviewToBack(backgroundImage)
         
         UIUtils.styleButton(loginButton, textColor: ThemeText, borderColor: ThemeText.CGColor, borderWidth: BorderWidth, cornerRadius: CornerRadius, backgroundColor: nil)
