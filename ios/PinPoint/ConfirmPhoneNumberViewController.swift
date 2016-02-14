@@ -31,19 +31,26 @@ class ConfirmPhoneNumberViewController: UIViewController {
     
     // phone number verification
     func confirmConfirmationNumber() {
-        if let _ = UserManager.user.confirmationCode, _ = confirmationCodeTextField.text {
-            if UserManager.user.confirmationCode == confirmationCodeTextField.text {
-                print("Confirmation code successful")
-                performSegueWithIdentifier("phoneNumberConfirmedSegue", sender: self)
-            } else {
-                // TODO need to display some more stuff
-                confirmationCodeTextField.text = ""
-                confirmationCodeTextField.attributedPlaceholder = NSAttributedString(string:"Confirmation Number", attributes:[NSForegroundColorAttributeName: ThemeAccent])
-            }
+        if (textFieldValid() && UserManager.user.getCode() == confirmationCodeTextField.text! as String) {
+            print("Confirmation code successful")
+            performSegueWithIdentifier("phoneNumberConfirmedSegue", sender: self)
         } else {
-            // TODO need to display some more stuff
+            // TODO need to display some more error warning stuff CHARLEY TODO
             confirmationCodeTextField.text = ""
             confirmationCodeTextField.attributedPlaceholder = NSAttributedString(string:"Confirmation Number", attributes:[NSForegroundColorAttributeName: ThemeAccent])
         }
     }
+    
+    // check validity of text entry CHARLEY TODO
+    func textFieldValid() -> Bool {
+        let text = confirmationCodeTextField.text
+        if (text?.characters.count != 4){ // TODO more checking/user response?
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    // TODO text input handling
+    
 }

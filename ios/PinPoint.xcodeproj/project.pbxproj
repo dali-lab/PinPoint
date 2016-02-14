@@ -120,11 +120,11 @@
 		899D81A31C5D1276003C2C56 /* Home/Login/Setup */ = {
 			isa = PBXGroup;
 			children = (
+				891C6B991C66EFF800694ACD /* ConfirmPhoneNumberViewController.swift */,
+				893EA96C1C653B7C0071527E /* HomePageViewController.swift */,
 				899D81A11C5C2353003C2C56 /* LoginViewController.swift */,
 				891443DA1C5D85E000F7A4A6 /* PhoneNumberViewController.swift */,
-				893EA96C1C653B7C0071527E /* HomePageViewController.swift */,
 				893EA9731C6555230071527E /* SignUpViewController.swift */,
-				891C6B991C66EFF800694ACD /* ConfirmPhoneNumberViewController.swift */,
 			);
 			name = Home/Login/Setup;
 			sourceTree = "<group>";
@@ -132,12 +132,12 @@
 		89C4EC911C600E37002640FD /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				89C4EC8F1C600E2D002640FD /* SearchLocationViewController.swift */,
-				891443DC1C5D8FE700F7A4A6 /* MapViewController.swift */,
-				89C4EC921C6043CD002640FD /* ResultTableViewCell.swift */,
 				89C4EC941C604ABF002640FD /* LocationUtils.swift */,
-				891188ED1C6D7DEC0040D903 /* ResultCell.xib */,
+				891443DC1C5D8FE700F7A4A6 /* MapViewController.swift */,
 				891188F11C6D90450040D903 /* ProfileSlideOutViewController.swift */,
+				891188ED1C6D7DEC0040D903 /* ResultCell.xib */,
+				89C4EC921C6043CD002640FD /* ResultTableViewCell.swift */,
+				89C4EC8F1C600E2D002640FD /* SearchLocationViewController.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";

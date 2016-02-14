@@ -12,4 +12,11 @@ import SlideMenuControllerSwift
 
 class ProfileSlideOutViewController: UIViewController {
     
+    @IBOutlet weak var logoutButton: UIButton!
+    
+    @IBAction func logoutButtonPressed(sender: AnyObject) {
+        UserManager.user.logout()
+        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.slideMenuController()?.closeLeft()
+    }
 }

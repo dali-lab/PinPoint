@@ -50,13 +50,15 @@ class HomePageViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Slide menu controller setup
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let leftViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSlideOut") as! ProfileSlideOutViewController
-        let mainViewController = storyboard.instantiateViewControllerWithIdentifier("Map") as! MapViewController
-        let rightViewController = UIViewController()
-        let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
-        self.presentViewController(slideMenuController, animated: false, completion: nil)
-//        self.window?.rootViewController = slideMenuController
-//        self.window?.makeKeyAndVisible()
+        if segue.identifier == "toMapSegue" {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let leftViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSlideOut") as! ProfileSlideOutViewController
+            let mainViewController = storyboard.instantiateViewControllerWithIdentifier("Map") as! MapViewController
+            let rightViewController = UIViewController()
+            let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+            self.presentViewController(slideMenuController, animated: false, completion: nil)
+    //        self.window?.rootViewController = slideMenuController
+    //        self.window?.makeKeyAndVisible()
+        }
     }
 }

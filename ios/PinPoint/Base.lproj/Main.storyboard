@@ -156,22 +156,24 @@
                                     <constraint firstAttribute="width" constant="20" id="o6b-jR-049"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="We'll send a text to verify your phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPJ-ZF-BP9">
-                                <rect key="frame" x="159" y="161" width="283" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We'll send a text to verify your phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPJ-ZF-BP9">
+                                <rect key="frame" x="159" y="167" width="283" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="azE-Nm-Ksn"/>
-                                    <constraint firstAttribute="width" constant="283" id="j8G-ej-5rI"/>
+                                    <constraint firstAttribute="width" constant="283" id="w4u-b6-gjb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ZUj-Qa-ZYD" firstAttribute="top" secondItem="y33-Fw-mdV" secondAttribute="bottom" constant="403" id="6HM-Yf-hEc"/>
+                            <constraint firstItem="RPJ-ZF-BP9" firstAttribute="top" secondItem="y33-Fw-mdV" secondAttribute="bottom" constant="14" id="8kq-fW-YpR"/>
+                            <constraint firstItem="RPJ-ZF-BP9" firstAttribute="centerX" secondItem="y33-Fw-mdV" secondAttribute="centerX" id="Ir1-hq-r8o"/>
                             <constraint firstItem="y33-Fw-mdV" firstAttribute="leading" secondItem="iPs-fu-V8O" secondAttribute="trailing" constant="8" symbolic="YES" id="URV-4Z-lHf"/>
                             <constraint firstItem="iPs-fu-V8O" firstAttribute="centerY" secondItem="y33-Fw-mdV" secondAttribute="centerY" id="XO8-bX-Yvb"/>
+                            <constraint firstItem="ZUj-Qa-ZYD" firstAttribute="top" secondItem="RPJ-ZF-BP9" secondAttribute="bottom" constant="368" id="ZJb-4b-L0n"/>
                             <constraint firstItem="y33-Fw-mdV" firstAttribute="centerX" secondItem="ifg-xO-CZd" secondAttribute="centerX" id="nRQ-zc-HJQ"/>
                         </constraints>
                     </view>
@@ -233,8 +235,24 @@
                     <view key="view" contentMode="scaleToFill" id="YCy-dh-exr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppd-o6-pcV">
+                                <rect key="frame" x="276" y="165" width="48" height="30"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logoutButtonPressed:" destination="W2l-TL-X82" eventType="touchUpInside" id="XD5-zc-fCP"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.24313725489999999" green="0.2784313725" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="ppd-o6-pcV" firstAttribute="centerX" secondItem="YCy-dh-exr" secondAttribute="centerX" id="4hG-Rq-m7U"/>
+                            <constraint firstItem="ppd-o6-pcV" firstAttribute="top" secondItem="BAA-2l-AAe" secondAttribute="bottom" constant="145" id="vYc-Re-r37"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="logoutButton" destination="ppd-o6-pcV" id="h81-2d-JXB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JBS-Mr-lSB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -93,9 +93,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     // respond to profile image press
     func profileImagePressed() {
         print("Showing slide out menu")
+//        UserManager.user.logout()
+//        self.navigationController?.popToRootViewControllerAnimated(true)
         self.slideMenuController()?.openLeft()
     }
     
+    // TODO abstract to UserManager
     func downloadImage(url: NSURL){
         print("attempting to download image: " + (url.lastPathComponent ?? ""))
         getDataFromUrl(url) { (data, response, error)  in
@@ -113,16 +116,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
             }.resume()
     }
     
-    func viewProfile(recognizer: UITapGestureRecognizer){
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         // TODO better way to set default location behavior?
+        // set default location each view is presented
         setLocation()
     }
     
+    // show search view controller
     func searchButtonPressed() {
         self.presentViewController(searchViewController, animated: true, completion: nil) //TODO completion
     }

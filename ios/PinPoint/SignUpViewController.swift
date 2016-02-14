@@ -56,7 +56,7 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
                         print("Login failed. \(error)")
                     } else {
                         self.signUpUser(authData)
-                        UserManager.user.uid = authData.uid
+                        UserManager.user.setUID(authData.uid)
                     }
             })
         }
@@ -74,7 +74,7 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
             
             if error == nil {
                 // get user data
-                print("fetched user: \(result)")
+                print("fetched user: \(result)") // TODO this should be refactored to UserManager
                 let result = result as! NSDictionary
                 var data = [String: String]()
                 data["uid"] = (auth.uid as String)
@@ -101,7 +101,7 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
                         // segue
                         self.performSegueWithIdentifier("getBasicInfoSegue", sender: self)
                     } else {
-                        print("\(error)")
+                        print("Error: \(error)")
                         // TODO
                     }
                 })
