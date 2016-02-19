@@ -11,5 +11,5 @@ Super cool app.
 
 # Required Key Files (get from a current developer)
 
-- twilio_keys
+- twilio_keys.plist
 - mapbox_keys (not currently used)

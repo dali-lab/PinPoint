@@ -11,6 +11,7 @@
 # Keys
 mapbox_key
 twilio_key
+twilio_keys.plist
 
 # Vim
 *.swp
