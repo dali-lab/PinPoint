@@ -80,8 +80,7 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
         if let _ = string.rangeOfCharacterFromSet(invalidCharacters, options: [], range:Range<String.Index>(start: string.startIndex, end: string.endIndex)) {
             return false
         }
-        if textField == phoneNumbertextField
-        {
+        if (textField == phoneNumbertextField) {
             let newString = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
             let components = newString.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)
             
@@ -98,19 +97,16 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
             var index = 0 as Int
             let formattedString = NSMutableString()
             
-            if hasLeadingOne
-            {
+            if (hasLeadingOne) {
                 formattedString.appendString("1 ")
                 index += 1
             }
-            if (length - index) > 3
-            {
+            if ((length - index) > 3) {
                 let areaCode = decimalString.substringWithRange(NSMakeRange(index, 3))
                 formattedString.appendFormat("(%@)", areaCode)
                 index += 3
             }
-            if length - index > 3
-            {
+            if (length - index > 3) {
                 let prefix = decimalString.substringWithRange(NSMakeRange(index, 3))
                 formattedString.appendFormat("%@-", prefix)
                 index += 3
@@ -121,8 +117,7 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
             textField.text = formattedString as String
             return false
         }
-        else
-        {
+        else {
             return true
         }
     }

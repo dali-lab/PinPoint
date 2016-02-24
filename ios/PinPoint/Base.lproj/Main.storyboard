@@ -148,8 +148,8 @@
                                     <constraint firstAttribute="width" constant="20" id="o6b-jR-049"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We'll send a text to verify your phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPJ-ZF-BP9">
-                                <rect key="frame" x="159" y="167" width="283" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="We'll send you a text to verify your phone number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPJ-ZF-BP9">
+                                <rect key="frame" x="151" y="167" width="300" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="283" id="w4u-b6-gjb"/>
                                 </constraints>
