@@ -19,7 +19,7 @@ class UserManager {
     var userRef: Firebase! = nil
     
     var code: String!
-    var location: CLLocationCoordinate2D!
+    var location: CLLocationCoordinate2D! = CLLocationCoordinate2D(latitude: 43.705435, longitude: -72.2891243) // Baker librry
     var phoneNumber: String!
     var pictureURL: String!
     private var uid: String!

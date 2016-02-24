@@ -26,20 +26,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     var mapView: MGLMapView!
 //    var mapView: MKMapView!
     let locationManager = CLLocationManager()
-    let defaultCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 43.705435, longitude: -72.2891243) // Baker librry
     var gotUserLocation = false
     var searchViewController: SearchLocationViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        navigationController?.navigationBar.hidden = true;
-//        navigationController?.hidesBarsOnSwipe = true;
-        
         initMapView()
-        
-        // set default location; should probably do this better/differently
-        UserManager.user.location = defaultCoordinate
         
         searchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchViewController") as! SearchLocationViewController
         searchViewController.delegate = self
@@ -80,6 +73,18 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         searchButton.addGestureRecognizer(searchTap)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // TODO better way to set default location behavior?
+        // set default location each view is presented
+        setMapCenterToUserLocationWithZoom(16)
+        
+        navigationController?.navigationBar.hidden = true;
+//        navigationController?.hidesBarsOnSwipe = true;
+        
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 //        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("Map") {
@@ -116,14 +121,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
             }.resume()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // TODO better way to set default location behavior?
-        // set default location each view is presented
-        setLocation()
-    }
-    
     // show search view controller
     func searchButtonPressed() {
         self.presentViewController(searchViewController, animated: true, completion: nil) //TODO completion
@@ -133,10 +130,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     func initMapView() {
         // TODO allow rotation?
         // initialize the map view
-        mapView = MGLMapView(frame: view.bounds)
-//        mapView = MKMapView(frame: view.bounds)
+        mapView = MGLMapView(frame: view.bounds,
+                             styleURL: MGLStyle.streetsStyleURL())
         mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-//        mapView = MGLMapView(frame: view.bounds, styleURL: MGLStyle.darkStyleURL())
         
         view.addSubview(mapView)
         view.sendSubviewToBack(mapView)
@@ -152,23 +148,20 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         }
     }
     
-    func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        return true
-    }
-    
+    // action for "deliver here" button
     @IBAction func deliverHere(sender: AnyObject) {
-        getScreenCenterPoint()
-        setLocation()
+        setUserLocationToScreenCenter()
+        setMapCenterToUserLocation()
     }
     
     func searchResultSelected(sender: AnyObject) {
         let cell = sender as! ResultTableViewCell
         UserManager.user.location = cell.placemark.location?.coordinate
-        setLocation()
+        setMapCenterToUserLocationWithZoom(16)
     }
     
-    // Set location for top bar, map center
-    func setLocation() {
+    // Set location for top bar and map while using the default zoom value
+    func setMapCenterToUserLocation() {
         // update top bar
         let location: CLLocation = CLLocation(latitude: UserManager.user.location.latitude, longitude: UserManager.user.location.longitude)
         LocationUtils.reverseGeocoding(location, completion: updateResultBar)
@@ -177,16 +170,21 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         mapView.setCenterCoordinate(CLLocationCoordinate2D(
             latitude: UserManager.user.location.latitude,
             longitude: UserManager.user.location.longitude),
-            zoomLevel: 16,
-            animated: false)
-//        mapView.setCenterCoordinate(CLLocationCoordinate2D(
-//            latitude: currCoordinate.latitude,
-//            longitude: currCoordinate.longitude),
-//            animated: false)
+            animated: true)
+    }
+    
+    // Set location for top bar and map but take in a zoom level
+    func setMapCenterToUserLocationWithZoom(zoom: Double) {
+        // update top bar
+        let location: CLLocation = CLLocation(latitude: UserManager.user.location.latitude, longitude: UserManager.user.location.longitude)
+        LocationUtils.reverseGeocoding(location, completion: updateResultBar)
         
-        let lat = String(format: "%f", arguments: [UserManager.user.location.latitude])
-        let long = String(format: "%f", arguments: [UserManager.user.location.longitude])
-        print("set map location = \(lat) \(long)")
+        // update map location by setting center coordinate
+        mapView.setCenterCoordinate(CLLocationCoordinate2D(
+            latitude: UserManager.user.location.latitude,
+            longitude: UserManager.user.location.longitude),
+            zoomLevel: zoom,
+            animated: true)
     }
     
     func updateResultBar(placemark: CLPlacemark) {
@@ -198,14 +196,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         // TODO manager not nil?
         if (!gotUserLocation) {
             UserManager.user.location = manager.location!.coordinate
-            setLocation()
+            setMapCenterToUserLocationWithZoom(16)
             gotUserLocation = true
             locationManager.stopUpdatingLocation()
         }
     }
     
-    // get screen center point
-    func getScreenCenterPoint() {
+    // get screen center point and set the user's location
+    func setUserLocationToScreenCenter() {
         let centerScreenPoint: CGPoint = mapView.convertCoordinate(mapView.centerCoordinate, toPointToView: mapView)
         UserManager.user.location = mapView.convertPoint(centerScreenPoint, toCoordinateFromView: mapView)
     }
