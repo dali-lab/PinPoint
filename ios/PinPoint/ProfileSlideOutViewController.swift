@@ -8,7 +8,7 @@
 
 import UIKit
 import Foundation
-import SlideMenuControllerSwift
+//import SlideMenuControllerSwift
 
 class ProfileSlideOutViewController: UIViewController {
     
@@ -17,6 +17,6 @@ class ProfileSlideOutViewController: UIViewController {
     @IBAction func logoutButtonPressed(sender: AnyObject) {
         UserManager.user.logout()
         self.navigationController?.popToRootViewControllerAnimated(true)
-        self.slideMenuController()?.closeLeft()
+//        self.slideMenuController()?.closeLeft()
     }
 }

@@ -11,7 +11,7 @@ import Foundation
 import Mapbox
 import MapKit
 import Firebase
-import SlideMenuControllerSwift
+//import SlideMenuControllerSwift
 
 class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, SearchResultDelegate{
     
@@ -22,6 +22,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
     let user = UserManager.user
+    
+    var containerVC: ContainerViewController!
     
     var mapView: MGLMapView!
 //    var mapView: MKMapView!
@@ -80,25 +82,32 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         // set default location each view is presented
         setMapCenterToUserLocationWithZoom(16)
         
-        navigationController?.navigationBar.hidden = true;
+        navigationController?.navigationBar.hidden = true
+        navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-//        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("Map") {
-//            self.slideMenuController()?.mainViewController = controller
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+////        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("Map") {
+////            self.slideMenuController()?.mainViewController = controller
+////        }
+//        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileSlideOut") {
+//            self.slideMenuController()?.leftViewController = controller
 //        }
-        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileSlideOut") {
-            self.slideMenuController()?.leftViewController = controller
-        }
-    }
+//    }
     
     // respond to profile image press
     func profileImagePressed() {
-        print("Showing slide out menu")
+        print("profile image pressed")
 //        UserManager.user.logout()
 //        self.navigationController?.popToRootViewControllerAnimated(true)
-        self.slideMenuController()?.openLeft()
+//        self.slideMenuController()?.openLeft()
+        containerVC.openMenu()
+    }
+    
+    // close profile menu
+    @IBAction func closeMenu(sender: AnyObject) {
+        containerVC.closeMenu()
     }
     
     // TODO abstract to UserManager
