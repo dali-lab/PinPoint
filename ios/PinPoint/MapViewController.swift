@@ -23,8 +23,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
     let user = UserManager.user
     
-    var containerVC: ContainerViewController!
-    
     var mapView: MGLMapView!
 //    var mapView: MKMapView!
     let locationManager = CLLocationManager()
@@ -73,6 +71,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         let searchTap = UITapGestureRecognizer(target: self, action:"searchButtonPressed")
         searchButton.userInteractionEnabled = true
         searchButton.addGestureRecognizer(searchTap)
+        
+        setMapCenterToUserLocationWithZoom(16)
+        
+        self.slideMenuController()?.removeRightGestures()
+        self.slideMenuController()?.removeLeftGestures()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -86,28 +89,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-////        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("Map") {
-////            self.slideMenuController()?.mainViewController = controller
-////        }
-//        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileSlideOut") {
-//            self.slideMenuController()?.leftViewController = controller
-//        }
-//    }
-    
     // respond to profile image press
     func profileImagePressed() {
         print("profile image pressed")
-//        UserManager.user.logout()
-//        self.navigationController?.popToRootViewControllerAnimated(true)
-//        self.slideMenuController()?.openLeft()
-        containerVC.openMenu()
-    }
-    
-    // close profile menu
-    @IBAction func closeMenu(sender: AnyObject) {
-        containerVC.closeMenu()
+        self.slideMenuController()?.openLeft()
+//        containerVC.openMenu()
     }
     
     // TODO abstract to UserManager
@@ -202,6 +188,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // TODO manager not nil?
         if (!gotUserLocation) {
+            print("Getting and setting user location from")
             UserManager.user.location = manager.location!.coordinate
             setMapCenterToUserLocationWithZoom(16)
             gotUserLocation = true

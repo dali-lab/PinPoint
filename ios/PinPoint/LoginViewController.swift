@@ -93,9 +93,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let leftViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSlideOut") as! ProfileSlideOutViewController
             let mainViewController = storyboard.instantiateViewControllerWithIdentifier("Map") as! MapViewController
-            let rightViewController = UIViewController()
+            let rightViewController = UIViewController() // unused
             let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
-//            self.presentViewController(slideMenuController, animated: false, completion: nil)
+            self.presentViewController(slideMenuController, animated: false, completion: nil)
     //        self.window?.rootViewController = slideMenuController
     //        self.window?.makeKeyAndVisible()
         }
