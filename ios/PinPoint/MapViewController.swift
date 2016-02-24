@@ -81,8 +81,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         setMapCenterToUserLocationWithZoom(16)
         
         navigationController?.navigationBar.hidden = true;
-//        navigationController?.hidesBarsOnSwipe = true;
-        
     }
     
     override func awakeFromNib() {
