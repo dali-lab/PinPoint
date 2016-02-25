@@ -32,6 +32,7 @@ class HomePageViewController: UIViewController {
         loginButton.layer.borderColor = ThemeText.CGColor
         loginButton.layer.borderWidth = BorderWidth
         loginButton.layer.cornerRadius = CornerRadius
+        loginButton.layer.backgroundColor = UIColor.clearColor().CGColor
         loginButton.clipsToBounds = true
         
         signUpButton.setTitleColor(ThemeText, forState: .Normal)

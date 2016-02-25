@@ -29,6 +29,7 @@ let ThemeAccentBorder = Red
 
 // UI element constants
 let BorderWidth: CGFloat = 3.0
+let BorderWidthSmall: CGFloat = 1.5
 let CornerRadius: CGFloat = 6.0
 
 

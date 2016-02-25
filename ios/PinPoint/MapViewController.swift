@@ -15,9 +15,8 @@ import Firebase
 
 class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate{
     
-    @IBOutlet weak var searchButton: UIImageView!
+    @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var locationBar: UILabel!
     @IBOutlet weak var deliverHereButton: UIButton!
     
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
@@ -39,14 +38,18 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         searchViewController.delegate = self
         
         profileImage.layer.borderColor = ThemeAccent.CGColor
-        profileImage.layer.borderWidth = BorderWidth
+        profileImage.layer.borderWidth = BorderWidthSmall
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.clipsToBounds = true
         
         // TODO corner radius
-        locationBar.backgroundColor = ThemeAccent
-        locationBar.textColor = ThemeText
-        locationBar.layer.backgroundColor = ThemeAccent.CGColor
+//        locationBar.backgroundColor = White
+        locationButton.layer.backgroundColor = White.CGColor
+        locationButton.layer.borderColor = Grey.CGColor
+        locationButton.layer.borderWidth = BorderWidth
+        locationButton.layer.cornerRadius = CornerRadius
+        locationButton.layer.backgroundColor = White.CGColor
+        locationButton.clipsToBounds = true
         
         deliverHereButton.layer.borderColor = ThemeAccent.CGColor
         deliverHereButton.layer.borderWidth = BorderWidth
@@ -67,11 +70,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         let profileTap = UITapGestureRecognizer(target: self, action:"profileImagePressed")
         profileImage.userInteractionEnabled = true
         profileImage.addGestureRecognizer(profileTap)
-        
-        // search button setup
-        let searchTap = UITapGestureRecognizer(target: self, action:"searchButtonPressed")
-        searchButton.userInteractionEnabled = true
-        searchButton.addGestureRecognizer(searchTap)
         
         setMapCenterToUserLocationWithZoom(16)
 //        navigationController?.navigationBar.hidden = true
@@ -117,7 +115,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     }
     
     // show search view controller
-    func searchButtonPressed() {
+    @IBAction func searchButtonPressed(sender: AnyObject) {
         self.presentViewController(searchViewController, animated: true, completion: nil) //TODO completion; modal?
     }
     
@@ -176,7 +174,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     }
     
     func updateResultBar(placemark: CLPlacemark) {
-        self.locationBar.text = LocationUtils.addressFromPlacemark(placemark)
+        locationButton.titleLabel?.text = LocationUtils.addressFromPlacemark(placemark)
+//        locationButton.sizeToFit()
     }
     
     // get user's current location once
