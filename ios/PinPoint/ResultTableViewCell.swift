@@ -13,7 +13,7 @@ import CoreLocation
 class ResultTableViewCell: UITableViewCell {
     
     @IBOutlet weak var resultText: UILabel!
-    var placemark: CLPlacemark!
+    var placemark: CLPlacemark! // TODO needed?
     
     override func awakeFromNib() {
         super.awakeFromNib()

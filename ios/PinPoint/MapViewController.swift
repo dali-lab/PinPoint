@@ -13,7 +13,7 @@ import MapKit
 import Firebase
 //import SlideMenuControllerSwift
 
-class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, SearchResultDelegate{
+class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate{
     
     @IBOutlet weak var searchButton: UIImageView!
     @IBOutlet weak var profileImage: UIImageView!
@@ -34,6 +34,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         
         initMapView()
         
+        // set search delegate
         searchViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchViewController") as! SearchLocationViewController
         searchViewController.delegate = self
         
@@ -147,12 +148,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         setMapCenterToUserLocation()
     }
     
-    func searchResultSelected(sender: AnyObject) {
-        let cell = sender as! ResultTableViewCell
-        UserManager.user.location = cell.placemark.location?.coordinate
-        setMapCenterToUserLocationWithZoom(16)
-    }
-    
     // Set location for top bar and map while using the default zoom value
     func setMapCenterToUserLocation() {
         // update top bar
@@ -188,7 +183,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // TODO manager not nil?
         if (!gotUserLocation) {
-            print("Getting and setting user location")
+            print("Getting and setting map to user location")
             UserManager.user.location = manager.location!.coordinate
             setMapCenterToUserLocationWithZoom(16)
             gotUserLocation = true
@@ -200,5 +195,20 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     func setUserLocationToScreenCenter() {
         let centerScreenPoint: CGPoint = mapView.convertCoordinate(mapView.centerCoordinate, toPointToView: mapView)
         UserManager.user.location = mapView.convertPoint(centerScreenPoint, toCoordinateFromView: mapView)
+    }
+}
+
+// handle returns from user's searching
+extension MapViewController: SearchResultDelegate {
+    
+    func searchResultSelected(sender: AnyObject) {
+        let cell = sender as! ResultTableViewCell
+        UserManager.user.location = cell.placemark.location?.coordinate
+        setMapCenterToUserLocationWithZoom(16)
+    }
+    
+    func setToCurrentLocation(sender: AnyObject) {
+        gotUserLocation = false
+        locationManager.startUpdatingLocation()
     }
 }
