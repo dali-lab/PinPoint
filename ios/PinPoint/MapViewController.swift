@@ -73,9 +73,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         searchButton.addGestureRecognizer(searchTap)
         
         setMapCenterToUserLocationWithZoom(16)
+//        navigationController?.navigationBar.hidden = true
+        navigationController?.interactivePopGestureRecognizer?.enabled = false
         
-        self.slideMenuController()?.removeRightGestures()
-        self.slideMenuController()?.removeLeftGestures()
+        slideMenuController()?.removeRightGestures()
+        slideMenuController()?.removeLeftGestures()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -83,17 +85,16 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         
         // TODO better way to set default location behavior?
         // set default location each view is presented
-        setMapCenterToUserLocationWithZoom(16)
+//        setMapCenterToUserLocationWithZoom(16)
         
-        navigationController?.navigationBar.hidden = true
-        navigationController?.interactivePopGestureRecognizer?.enabled = false
+//        navigationController?.navigationBar.hidden = true
+//        navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     // respond to profile image press
     func profileImagePressed() {
         print("profile image pressed")
         self.slideMenuController()?.openLeft()
-//        containerVC.openMenu()
     }
     
     // TODO abstract to UserManager
@@ -116,12 +117,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     // show search view controller
     func searchButtonPressed() {
-        self.presentViewController(searchViewController, animated: true, completion: nil) //TODO completion
+        self.presentViewController(searchViewController, animated: true, completion: nil) //TODO completion; modal?
     }
     
     // initializes the map
     func initMapView() {
-        // TODO allow rotation?
         // initialize the map view
         mapView = MGLMapView(frame: view.bounds,
                              styleURL: MGLStyle.streetsStyleURL())
@@ -188,7 +188,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // TODO manager not nil?
         if (!gotUserLocation) {
-            print("Getting and setting user location from")
+            print("Getting and setting user location")
             UserManager.user.location = manager.location!.coordinate
             setMapCenterToUserLocationWithZoom(16)
             gotUserLocation = true

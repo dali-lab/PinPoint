@@ -83,21 +83,18 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         userRef.queryOrderedByChild("uid").queryEqualToValue(auth.uid).observeEventType(.ChildAdded, withBlock: { snapshot in
             print("logging in: ")
             UserManager.user.pictureURL = String(snapshot.childSnapshotForPath("profile_picture").value)
-            self.performSegueWithIdentifier("loginCompleteSegue", sender: self)
+            self.segueWithSlideMenu()
         })
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Slide menu controller setup
-        if segue.identifier == "loginCompleteSegue" {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let leftViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSlideOut") as! ProfileSlideOutViewController
-            let mainViewController = storyboard.instantiateViewControllerWithIdentifier("Map") as! MapViewController
-            let rightViewController = UIViewController() // unused
-            let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
-            self.presentViewController(slideMenuController, animated: false, completion: nil)
-    //        self.window?.rootViewController = slideMenuController
-    //        self.window?.makeKeyAndVisible()
-        }
+    func segueWithSlideMenu() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let leftViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSlideOut") as! ProfileSlideOutViewController
+        let mainViewController = storyboard.instantiateViewControllerWithIdentifier("Map") as! MapViewController
+        let rightViewController = UIViewController() // unused
+        let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+//        self.presentViewController(slideMenuController, animated: false, completion: nil)
+//        self.navigationController?.presentViewController(slideMenuController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(slideMenuController, animated: true)
     }
 }

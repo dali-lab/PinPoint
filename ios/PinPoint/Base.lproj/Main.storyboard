@@ -101,9 +101,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <segue destination="tTu-kQ-grn" kind="show" identifier="loginCompleteSegue" id="Nxx-wI-xeo"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CZy-pk-GSj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -261,7 +258,7 @@
         <!--Map View Controller-->
         <scene sceneID="toN-6i-udx">
             <objects>
-                <viewController storyboardIdentifier="Map" id="tTu-kQ-grn" customClass="MapViewController" customModule="PinPoint" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Map" extendedLayoutIncludesOpaqueBars="YES" id="tTu-kQ-grn" customClass="MapViewController" customModule="PinPoint" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lgt-6Y-S4f"/>
                         <viewControllerLayoutGuide type="bottom" id="iKz-AK-gE8"/>
@@ -288,7 +285,7 @@
                                     <action selector="deliverHere:" destination="tTu-kQ-grn" eventType="touchUpInside" id="hma-35-Wta"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Location Bar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uic-Aw-g7e">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Bar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uic-Aw-g7e">
                                 <rect key="frame" x="129" y="83" width="400" height="47"/>
                                 <color key="backgroundColor" red="0.24313725489999999" green="0.2784313725" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -298,10 +295,10 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="UaS-c1-rdl">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="UaS-c1-rdl">
                                 <rect key="frame" x="101" y="95" width="20" height="20"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="8vG-tb-mL4">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="8vG-tb-mL4">
                                 <rect key="frame" x="20" y="80" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7MU-sN-Mfu"/>
@@ -339,7 +336,6 @@
                         <outlet property="locationBar" destination="Uic-Aw-g7e" id="hta-NN-dzW"/>
                         <outlet property="profileImage" destination="8vG-tb-mL4" id="4j8-dZ-dQi"/>
                         <outlet property="searchButton" destination="UaS-c1-rdl" id="8dE-P7-Y1l"/>
-                        <segue destination="96x-J5-5kB" kind="show" identifier="searchSegue" id="x42-Tf-h0S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SQx-PA-XtN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -354,6 +350,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="XlG-40-RHL">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="qN1-FY-fls" kind="relationship" relationship="rootViewController" id="WO2-A8-jgW"/>
                     </connections>
@@ -415,7 +415,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="SearchViewController" clearsSelectionOnViewWillAppear="NO" id="96x-J5-5kB" customClass="SearchLocationViewController" customModule="PinPoint" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="RmV-OW-env">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -457,6 +457,46 @@
             </objects>
             <point key="canvasLocation" x="3719" y="1092"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="LI2-S4-kKp">
+            <objects>
+                <viewController id="XIh-xA-VcS" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="29S-Z7-sfO"/>
+                        <viewControllerLayoutGuide type="bottom" id="SAw-or-jSk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="omB-qt-0qq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WWN-Io-do4">
+                                <rect key="frame" x="0.0" y="28" width="600" height="572"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="XIh-xA-VcS" id="75T-3N-Q6q"/>
+                                    <outlet property="delegate" destination="XIh-xA-VcS" id="0ox-hz-Fdp"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WWN-Io-do4" firstAttribute="top" secondItem="29S-Z7-sfO" secondAttribute="bottom" constant="8" symbolic="YES" id="MPH-7K-YOk"/>
+                            <constraint firstItem="WWN-Io-do4" firstAttribute="bottom" secondItem="SAw-or-jSk" secondAttribute="top" id="SgO-V3-cDy"/>
+                            <constraint firstItem="WWN-Io-do4" firstAttribute="leading" secondItem="omB-qt-0qq" secondAttribute="leadingMargin" constant="165" id="WLF-gz-OyX"/>
+                            <constraint firstItem="WWN-Io-do4" firstAttribute="leading" secondItem="omB-qt-0qq" secondAttribute="leading" id="gMB-Ec-Qrx"/>
+                            <constraint firstAttribute="trailing" secondItem="WWN-Io-do4" secondAttribute="trailing" id="owy-72-AwZ"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="WLF-gz-OyX"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7lU-CZ-8Yg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4353" y="1048"/>
+        </scene>
     </scenes>
     <resources>
         <image name="background" width="750" height="1334"/>
@@ -465,6 +505,6 @@
         <image name="search" width="51" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Nxx-wI-xeo"/>
+        <segue reference="gFQ-4m-oqN"/>
     </inferredMetricsTieBreakers>
 </document>
