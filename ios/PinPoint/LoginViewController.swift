@@ -33,6 +33,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.hidden = false
+        navigationController?.navigationBarHidden = false
         navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     

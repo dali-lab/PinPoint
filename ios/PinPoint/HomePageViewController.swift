@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 import FBSDKLoginKit
-//import SlideMenuControllerSwift
+import SlideMenuControllerSwift
 
 class HomePageViewController: UIViewController {
     
@@ -23,7 +23,7 @@ class HomePageViewController: UIViewController {
         // user already logged in
         if (FBSDKAccessToken.currentAccessToken() != nil) {
             print("User already logged in with Facebook")
-            performSegueWithIdentifier("toMapSegue", sender: self)
+            segueWithSlideMenu()
         }
         
         view.sendSubviewToBack(backgroundImage)
@@ -49,17 +49,14 @@ class HomePageViewController: UIViewController {
         navigationController?.navigationBar.hidden = true;
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Slide menu controller setup
-//        if segue.identifier == "toMapSegue" {
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let leftViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSlideOut") as! ProfileSlideOutViewController
-//            let mainViewController = storyboard.instantiateViewControllerWithIdentifier("Map") as! MapViewController
-//            let rightViewController = UIViewController()
-//            let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
-//            self.presentViewController(slideMenuController, animated: false, completion: nil)
-//    //        self.window?.rootViewController = slideMenuController
-//    //        self.window?.makeKeyAndVisible()
-//        }
+    func segueWithSlideMenu() {
+        SlideMenuOptions.leftViewWidth = self.view.bounds.size.width/2
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let leftViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSlideOut") as! ProfileSlideOutViewController
+        let mainViewController = storyboard.instantiateViewControllerWithIdentifier("Map") as! MapViewController
+        let rightViewController = UIViewController() // unused
+        let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+        self.navigationController?.pushViewController(slideMenuController, animated: true)
     }
 }

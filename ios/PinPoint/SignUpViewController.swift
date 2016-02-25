@@ -31,6 +31,7 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.hidden = false
+        navigationController?.navigationBarHidden = false
     }
     
     // Facebook Delegate Method

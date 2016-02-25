@@ -29,10 +29,9 @@ class SearchLocationViewController: UIViewController {
         let nib = UINib(nibName: "ResultCell", bundle: nil)
         tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         
-        definesPresentationContext = true
-        
         navigationController?.navigationBarHidden = false
         
+        // top separator for table view
         tableView.backgroundColor = White
         let px = 1 / UIScreen.mainScreen().scale
         let frame = CGRectMake(0, 0, self.tableView.frame.size.width, px)
@@ -43,8 +42,18 @@ class SearchLocationViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        searchTextField.becomeFirstResponder() // show keyboard
     }
     
+    // clear/reset stuff
+    override func viewDidDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchTextField.text = "" // reset search upon click
+        searchTextField.resignFirstResponder()
+        searchResults = []
+        tableView.reloadData()
+    }
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -84,15 +93,15 @@ extension SearchLocationViewController: UITableViewDataSource {
     
     // table view delegate- cell selection
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("clicked" + String(indexPath))
         if (self.delegate != nil) {
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
                 if ((cell as! ResultTableViewCell).placemark != nil) { // TODO forced cast could crash
+                    print("selected result")
                     self.delegate.searchResultSelected(cell)
                 } else {
+                    print("selected default")
                     self.delegate.setToCurrentLocation(cell) // set to current location
                 }
-                searchTextField.text = "" // reset search upon click
                 cell.selected = false
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
