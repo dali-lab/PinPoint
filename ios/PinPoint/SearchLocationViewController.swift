@@ -13,14 +13,13 @@ import Mapbox //needed?
 class SearchLocationViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UITextField!
+    @IBOutlet weak var searchTextField: UITextField!
     
     var searchResults = [CLPlacemark]()
     var defaultResults: [String] = ["Current Location"]
     var timer: NSTimer!
     var currentSearchText: String!
     var delegate = SearchResultDelegate!()
-    
     let searchController = UISearchController(searchResultsController: nil)
 
     
@@ -30,11 +29,7 @@ class SearchLocationViewController: UIViewController {
         let nib = UINib(nibName: "ResultCell", bundle: nil)
         tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.searchBarStyle = .Minimal
         definesPresentationContext = true
-        tableView.tableHeaderView = searchController.searchBar
         
         navigationController?.navigationBarHidden = false
         
@@ -92,6 +87,8 @@ extension SearchLocationViewController: UITableViewDataSource {
                 } else {
                     self.delegate.setToCurrentLocation(cell) // set to current location
                 }
+                searchTextField.text = "" // reset search upon click
+                cell.selected = false
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
@@ -103,12 +100,12 @@ extension SearchLocationViewController: UITableViewDataSource {
     }
     
     // execute forward geocoding search when user stops typing
-    func startTimerForSearch(searchText: String) {
+    @IBAction func textFieldChanged(sender: AnyObject) {
         if let timer = timer { // stop old timer
             timer.invalidate()
         }
-        if (searchText.characters.count != 0) { // set new timer
-            currentSearchText = searchText
+        if (searchTextField.text!.characters.count != 0) { // set new timer
+            currentSearchText = searchTextField.text
             timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "startSearch", userInfo: nil, repeats: false)
         } else { // no characters so clear table
             searchResults.removeAll()
@@ -127,13 +124,6 @@ extension SearchLocationViewController: UITableViewDataSource {
         searchResults.removeAll()
         searchResults.appendContentsOf(placemarks)
         tableView.reloadData()
-    }
-}
-
-// search bar delegate
-extension SearchLocationViewController: UISearchResultsUpdating {
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        startTimerForSearch(searchController.searchBar.text!)
     }
 }
 

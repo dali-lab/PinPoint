@@ -422,14 +422,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WWN-Io-do4">
-                                <rect key="frame" x="0.0" y="62" width="600" height="538"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="XIh-xA-VcS" id="75T-3N-Q6q"/>
-                                    <outlet property="delegate" destination="XIh-xA-VcS" id="0ox-hz-Fdp"/>
-                                </connections>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UIs-ii-6Qv">
                                 <rect key="frame" x="533" y="28" width="48" height="30"/>
                                 <state key="normal" title="Cancel"/>
@@ -443,18 +435,37 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address or place name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vSO-Xc-r6Z">
+                                <rect key="frame" x="20" y="62" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textFieldChanged:" destination="XIh-xA-VcS" eventType="editingChanged" id="Mrp-WP-PJL"/>
+                                </connections>
+                            </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WWN-Io-do4">
+                                <rect key="frame" x="0.0" y="100" width="600" height="500"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="XIh-xA-VcS" id="75T-3N-Q6q"/>
+                                    <outlet property="delegate" destination="XIh-xA-VcS" id="0ox-hz-Fdp"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="vSO-Xc-r6Z" firstAttribute="top" secondItem="7MK-hD-UIz" secondAttribute="bottom" constant="8" symbolic="YES" id="60i-UI-Ucd"/>
                             <constraint firstItem="7MK-hD-UIz" firstAttribute="top" secondItem="UIs-ii-6Qv" secondAttribute="top" constant="5" id="91j-BT-ML4"/>
-                            <constraint firstItem="WWN-Io-do4" firstAttribute="top" secondItem="29S-Z7-sfO" secondAttribute="bottom" constant="42" id="MPH-7K-YOk"/>
+                            <constraint firstItem="WWN-Io-do4" firstAttribute="top" secondItem="29S-Z7-sfO" secondAttribute="bottom" constant="80" id="MPH-7K-YOk"/>
                             <constraint firstItem="WWN-Io-do4" firstAttribute="bottom" secondItem="SAw-or-jSk" secondAttribute="top" id="SgO-V3-cDy"/>
                             <constraint firstItem="7MK-hD-UIz" firstAttribute="top" secondItem="29S-Z7-sfO" secondAttribute="bottom" constant="13" id="Tww-iz-5Xs"/>
+                            <constraint firstItem="vSO-Xc-r6Z" firstAttribute="centerX" secondItem="7MK-hD-UIz" secondAttribute="centerX" id="Uyb-oO-4M8"/>
                             <constraint firstItem="WWN-Io-do4" firstAttribute="leading" secondItem="omB-qt-0qq" secondAttribute="leadingMargin" constant="165" id="WLF-gz-OyX"/>
                             <constraint firstItem="WWN-Io-do4" firstAttribute="leading" secondItem="omB-qt-0qq" secondAttribute="leading" id="gMB-Ec-Qrx"/>
                             <constraint firstAttribute="trailing" secondItem="WWN-Io-do4" secondAttribute="trailing" id="owy-72-AwZ"/>
                             <constraint firstItem="7MK-hD-UIz" firstAttribute="centerX" secondItem="WWN-Io-do4" secondAttribute="centerX" id="rDD-Yk-K9H"/>
-                            <constraint firstItem="WWN-Io-do4" firstAttribute="top" secondItem="7MK-hD-UIz" secondAttribute="bottom" constant="8" id="vTW-at-YH5"/>
+                            <constraint firstItem="vSO-Xc-r6Z" firstAttribute="leading" secondItem="omB-qt-0qq" secondAttribute="leadingMargin" id="uYO-ir-qlO"/>
+                            <constraint firstItem="WWN-Io-do4" firstAttribute="top" secondItem="7MK-hD-UIz" secondAttribute="bottom" constant="46" id="vTW-at-YH5"/>
                             <constraint firstItem="UIs-ii-6Qv" firstAttribute="trailing" secondItem="omB-qt-0qq" secondAttribute="trailingMargin" constant="1" id="yue-Nb-sCq"/>
                         </constraints>
                         <variation key="default">
@@ -464,6 +475,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="searchTextField" destination="vSO-Xc-r6Z" id="Lgb-zQ-NW0"/>
                         <outlet property="tableView" destination="WWN-Io-do4" id="InT-Xa-Bge"/>
                     </connections>
                 </viewController>
