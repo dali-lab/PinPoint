@@ -34,6 +34,11 @@ class SearchLocationViewController: UIViewController {
         navigationController?.navigationBarHidden = false
         
         tableView.backgroundColor = White
+        let px = 1 / UIScreen.mainScreen().scale
+        let frame = CGRectMake(0, 0, self.tableView.frame.size.width, px)
+        let line: UIView = UIView(frame: frame)
+        self.tableView.tableHeaderView = line
+        line.backgroundColor = self.tableView.separatorColor
     }
 
     override func viewWillAppear(animated: Bool) {
