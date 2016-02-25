@@ -33,6 +33,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.hidden = false
+        navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     // Facebook Delegate Method
@@ -88,13 +89,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func segueWithSlideMenu() {
+        SlideMenuOptions.leftViewWidth = self.view.bounds.size.width/2
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let leftViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSlideOut") as! ProfileSlideOutViewController
         let mainViewController = storyboard.instantiateViewControllerWithIdentifier("Map") as! MapViewController
         let rightViewController = UIViewController() // unused
         let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
-//        self.presentViewController(slideMenuController, animated: false, completion: nil)
-//        self.navigationController?.presentViewController(slideMenuController, animated: true, completion: nil)
         self.navigationController?.pushViewController(slideMenuController, animated: true)
     }
 }

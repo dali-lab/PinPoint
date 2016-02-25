@@ -23,6 +23,7 @@ class ConfirmPhoneNumberViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightNavItem
         
         self.navigationItem.title = "Verify Phone Number"
+        navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     override func viewWillAppear(animated: Bool) {

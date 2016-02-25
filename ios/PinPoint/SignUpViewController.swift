@@ -25,6 +25,7 @@ class SignUpViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginView.delegate = self
         
         self.navigationItem.title = "Sign Up"
+        navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     override func viewWillAppear(animated: Bool) {

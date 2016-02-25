@@ -40,6 +40,7 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
         navigationItem.rightBarButtonItem = rightNavItem
         
         self.navigationItem.title = "Add Phone Number"
+        navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     override func viewWillAppear(animated: Bool) {

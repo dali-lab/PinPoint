@@ -72,9 +72,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         profileImage.addGestureRecognizer(profileTap)
         
         setMapCenterToUserLocationWithZoom(16)
-//        navigationController?.navigationBar.hidden = true
         navigationController?.interactivePopGestureRecognizer?.enabled = false
         
+        slideMenuController()?.navigationController?.navigationBarHidden = true
         slideMenuController()?.removeRightGestures()
         slideMenuController()?.removeLeftGestures()
     }
@@ -174,8 +174,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     }
     
     func updateResultBar(placemark: CLPlacemark) {
-        locationButton.titleLabel?.text = LocationUtils.addressFromPlacemark(placemark)
-//        locationButton.sizeToFit()
+        locationButton.setTitle(LocationUtils.addressFromPlacemark(placemark), forState: .Normal)
     }
     
     // get user's current location once
