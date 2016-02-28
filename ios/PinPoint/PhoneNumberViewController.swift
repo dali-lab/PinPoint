@@ -31,7 +31,7 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
         
         // delegate to process user input and set keyboard as number pad
         phoneNumbertextField.delegate = self;
-        phoneNumbertextField.keyboardType = .NumberPad
+        phoneNumbertextField.keyboardType = .PhonePad
         
         // setup custom nav bar items
         let leftNavItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutButtonPressed")
@@ -45,6 +45,8 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        phoneNumbertextField.isFirstResponder()
         
         // reset phone number placeholder color
         phoneNumbertextField.attributedPlaceholder = NSAttributedString(string:"Phone Number", attributes:[NSForegroundColorAttributeName: PlaceholderColor])
@@ -63,11 +65,6 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
     func logoutButtonPressed() {
         UserManager.user.logout()
         self.navigationController?.popToRootViewControllerAnimated(true)
-    }
-    
-    // formats string of integers into phone number format
-    func formatPhoneNumber(simpleNumber: String) {
-    
     }
     
     // Charley
@@ -104,7 +101,7 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
             }
             if ((length - index) > 3) {
                 let areaCode = decimalString.substringWithRange(NSMakeRange(index, 3))
-                formattedString.appendFormat("(%@)", areaCode)
+                formattedString.appendFormat("(%@) ", areaCode)
                 index += 3
             }
             if (length - index > 3) {
@@ -123,25 +120,30 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // Charley
     func nextButtonPressed() {
-        if (textFieldValid()) { // valid text entry
-            UserManager.user.setPhoneNumber(phoneNumbertextField.text as String!)
-            
+        let phoneNo = stripNumber()
+        if (phoneNo.characters.count == 10) { // valid text entry
+            UserManager.user.setPhoneNumber(phoneNo as String!)
             if (UserManager.user.sendCodeToUser()) {
                 self.performSegueWithIdentifier("basicInfoEnteredSegue", sender: self)
             }
         }
-    }
-    
-    // check validity of text entry
-    func textFieldValid() -> Bool {
-        let text = phoneNumbertextField.text
-        if (text?.characters.count > 10) {
+        else {
             // TODO need to display some more error warning stuff CHARLEY TODO
             phoneNumbertextField.attributedPlaceholder = NSAttributedString(string:"Phone Number", attributes:[NSForegroundColorAttributeName: ThemeAccent])
-            return false
-        } else {
-            return true
         }
+    }
+    
+    // Charley
+    // return stripped phone number string
+    func stripNumber() -> String {
+        let text = phoneNumbertextField.text
+        
+        // strip non-numerical characters from textField
+        let arr = text!.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)
+        let strippedPhoneNumber = arr.joinWithSeparator("")
+
+        return strippedPhoneNumber//strippedPhoneNumber
     }
 }
