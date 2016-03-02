@@ -11,9 +11,8 @@ import Foundation
 import Mapbox
 import MapKit
 import Firebase
-//import SlideMenuControllerSwift
 
-class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate{
+class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var textCenterPoint: UILabel!
     @IBOutlet weak var locationButton: UIButton!
@@ -26,6 +25,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     let locationManager = CLLocationManager()
     var searchViewController: SearchLocationViewController!
     
+//    var timer: NSTimer!
     var gotLocation = false
     
     override func viewDidLoad() {
@@ -77,7 +77,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     // respond to profile image press
     func profileImagePressed() {
-        print("profile image pressed")
         self.slideMenuController()?.openLeft()
     }
     
@@ -107,8 +106,16 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
+            locationManager.distanceFilter = 15
         }
     }
+    
+//    func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+//        if let timer = timer { // stop old timer
+//            timer.invalidate()
+//        }
+//        timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: "deliverHere:", userInfo: nil, repeats: false)
+//    }
     
     // action for "deliver here" button
     @IBAction func deliverHere(sender: AnyObject) {
@@ -143,7 +150,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     // get user's current location once
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let dist = manager.location!.distanceFromLocation(UserManager.user.location)
-        if (dist > 5 || !gotLocation) { // significant change in location reading
+        if (dist > 15 || !gotLocation) { // significant change in location reading
             print("Getting and setting map to user location (distance: \(dist))")
             UserManager.user.location = manager.location
             setMapCenterToUserLocationWithZoom(16)
@@ -159,7 +166,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
 
 // handle returns from user's searching
 extension MapViewController: SearchResultDelegate {
-    
     func searchResultSelected(sender: AnyObject) {
         let cell = sender as! ResultTableViewCell
         UserManager.user.location = cell.placemark.location

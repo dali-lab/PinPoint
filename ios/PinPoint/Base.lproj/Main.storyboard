@@ -304,7 +304,6 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.24313725489999999" green="0.2784313725" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ppd-o6-pcV" firstAttribute="centerX" secondItem="YCy-dh-exr" secondAttribute="centerX" id="4hG-Rq-m7U"/>
                             <constraint firstItem="ppd-o6-pcV" firstAttribute="top" secondItem="BAA-2l-AAe" secondAttribute="bottom" constant="145" id="vYc-Re-r37"/>
