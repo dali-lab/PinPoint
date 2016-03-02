@@ -19,12 +19,14 @@ class HomePageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        UserManager.user
         
         // user already logged in
-        if (UserManager.user.login()) {
-            UserManager.user
-            segueWithSlideMenu()
-        }
+        UserManager.user.alreadyLoggedIn(segueWithSlideMenu)
+//        if (UserManager.user.login()) {
+//            UserManager.user
+//            segueWithSlideMenu()
+//        }
         
         view.sendSubviewToBack(backgroundImage)
         

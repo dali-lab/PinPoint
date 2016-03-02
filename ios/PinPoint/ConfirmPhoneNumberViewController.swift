@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import Foundation
 import Firebase
+import SlideMenuControllerSwift
 
 class ConfirmPhoneNumberViewController: UIViewController, UITextFieldDelegate {
     
@@ -39,9 +39,10 @@ class ConfirmPhoneNumberViewController: UIViewController, UITextFieldDelegate {
     // phone number verification
     func confirmConfirmationNumber() {
         if (textFieldValid() && UserManager.user.getCode() == confirmationCodeTextField.text! as String) {
-            print("Confirmation code successful")
+            print("Confirmation code entered successfully")
             UserManager.user.setPhoneNumberVerified(true)
-            performSegueWithIdentifier("phoneNumberConfirmedSegue", sender: self)
+            segueWithSlideMenu()
+//            performSegueWithIdentifier("phoneNumberConfirmedSegue", sender: self)
         } else {
             // TODO need to display some more error warning stuff CHARLEY TODO
             confirmationCodeTextField.text = ""
@@ -74,5 +75,17 @@ class ConfirmPhoneNumberViewController: UIViewController, UITextFieldDelegate {
         } else {
             return true
         }
+    }
+    
+    // perform special segue with the slide menu controller; duplicated with login vc
+    func segueWithSlideMenu() {
+        SlideMenuOptions.leftViewWidth = self.view.bounds.size.width/2
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let leftViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileSlideOut") as! ProfileSlideOutViewController
+        let mainViewController = storyboard.instantiateViewControllerWithIdentifier("Map") as! MapViewController
+        let rightViewController = UIViewController() // unused
+        let slideMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+        self.navigationController?.pushViewController(slideMenuController, animated: true)
     }
 }

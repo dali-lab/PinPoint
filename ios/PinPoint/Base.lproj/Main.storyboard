@@ -144,6 +144,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="tTu-kQ-grn" kind="show" identifier="unused" id="8w4-Sw-YuD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CZy-pk-GSj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -182,13 +185,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone" translatesAutoresizingMaskIntoConstraints="NO" id="iPs-fu-V8O">
-                                <rect key="frame" x="213" y="128" width="20" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="o6b-jR-049"/>
-                                    <constraint firstAttribute="width" secondItem="iPs-fu-V8O" secondAttribute="height" multiplier="1:1" id="pgW-LA-Vj8"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="We'll send you a text to verify your phone number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPJ-ZF-BP9">
                                 <rect key="frame" x="150" y="167" width="300" height="21"/>
                                 <constraints>
@@ -199,23 +195,30 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y33-Fw-mdV">
-                                <rect key="frame" x="241" y="123" width="118" height="30"/>
+                                <rect key="frame" x="229" y="123" width="142" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="s8U-wW-5hQ"/>
+                                    <constraint firstAttribute="width" constant="142" id="vgL-kU-f1u"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone" translatesAutoresizingMaskIntoConstraints="NO" id="iPs-fu-V8O">
+                                <rect key="frame" x="201" y="128" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="o6b-jR-049"/>
+                                    <constraint firstAttribute="width" secondItem="iPs-fu-V8O" secondAttribute="height" multiplier="1:1" id="pgW-LA-Vj8"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="RPJ-ZF-BP9" firstAttribute="top" secondItem="y33-Fw-mdV" secondAttribute="bottom" constant="14" id="0Dx-NI-n2A"/>
-                            <constraint firstItem="y33-Fw-mdV" firstAttribute="top" secondItem="vD6-41-nIZ" secondAttribute="bottom" constant="59" id="7T7-bM-ids"/>
                             <constraint firstItem="RPJ-ZF-BP9" firstAttribute="centerX" secondItem="ifg-xO-CZd" secondAttribute="centerX" id="Hrx-jd-Nmi"/>
                             <constraint firstItem="RPJ-ZF-BP9" firstAttribute="centerY" secondItem="ifg-xO-CZd" secondAttribute="centerY" id="SKn-sg-cYC"/>
-                            <constraint firstItem="y33-Fw-mdV" firstAttribute="centerX" secondItem="ifg-xO-CZd" secondAttribute="centerX" id="eCc-Ej-2c7"/>
-                            <constraint firstItem="y33-Fw-mdV" firstAttribute="centerY" secondItem="iPs-fu-V8O" secondAttribute="centerY" id="jWT-cN-ahM"/>
-                            <constraint firstItem="y33-Fw-mdV" firstAttribute="leading" secondItem="iPs-fu-V8O" secondAttribute="trailing" constant="8" symbolic="YES" id="mqc-Dv-kYe"/>
+                            <constraint firstItem="y33-Fw-mdV" firstAttribute="centerX" secondItem="RPJ-ZF-BP9" secondAttribute="centerX" id="WNS-qT-tKR"/>
+                            <constraint firstItem="y33-Fw-mdV" firstAttribute="leading" secondItem="iPs-fu-V8O" secondAttribute="trailing" constant="8" symbolic="YES" id="Wle-IL-HXT"/>
+                            <constraint firstItem="y33-Fw-mdV" firstAttribute="top" secondItem="vD6-41-nIZ" secondAttribute="bottom" constant="59" id="abj-BU-QHb"/>
+                            <constraint firstItem="RPJ-ZF-BP9" firstAttribute="top" secondItem="y33-Fw-mdV" secondAttribute="bottom" constant="14" id="hhF-Qk-9hL"/>
+                            <constraint firstItem="y33-Fw-mdV" firstAttribute="centerY" secondItem="iPs-fu-V8O" secondAttribute="centerY" id="pPt-zU-Chj"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -274,7 +277,7 @@
                     </view>
                     <connections>
                         <outlet property="confirmationCodeTextField" destination="iCH-30-MAv" id="YWN-Qa-riE"/>
-                        <segue destination="tTu-kQ-grn" kind="show" identifier="phoneNumberConfirmedSegue" id="QEC-A9-JJr"/>
+                        <segue destination="tTu-kQ-grn" kind="show" identifier="unused" id="QEC-A9-JJr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jAf-Hc-Yrb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -564,4 +567,7 @@
         <image name="phone" width="63" height="62"/>
         <image name="pinpoint_logo" width="810" height="488"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="8w4-Sw-YuD"/>
+    </inferredMetricsTieBreakers>
 </document>

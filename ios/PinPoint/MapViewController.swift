@@ -57,16 +57,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         deliverHereButton.layer.backgroundColor = ThemeAccent.CGColor
         deliverHereButton.clipsToBounds = true
         
-
-        // TODO better picture url fetch; put in db
-//        if let url = user.pictureURL {
-//            if let checkedUrl = NSURL(string: url) {
-//                downloadImage(checkedUrl)
-//            }
-//        }
-//        
         profileImage.contentMode = .ScaleAspectFit
-        print("did load")
         UserManager.user.setProfileImage(profileImage)
         
         // profile picture setup
@@ -80,19 +71,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         slideMenuController()?.navigationController?.navigationBarHidden = true
         slideMenuController()?.removeRightGestures()
         slideMenuController()?.removeLeftGestures()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-//        print("did appear")
-//        UserManager.user.setProfileImage(profileImage)
-        
-        // TODO better way to set default location behavior?
-        // set default location each view is presented
-//        setMapCenterToUserLocationWithZoom(16)
-        
-//        navigationController?.navigationBar.hidden = true
-//        navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     // respond to profile image press

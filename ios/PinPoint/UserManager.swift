@@ -35,6 +35,16 @@ class UserManager {
         print("User logged in with Facebook")
         return true
     }
+    
+    func alreadyLoggedIn(completion: () -> Void) {
+        if (login()) {
+            userRef.childByAppendingPath("phone_number_verified").observeSingleEventOfType(.Value, withBlock: { snapshot in
+                if (String(snapshot.value) == "1") { // true
+                    completion()
+                }
+            })
+        }
+    }
   
     // logout; returns true if successful, false otherwise
     // TODO what should be done in the case of unsuccessful logout? is it even possible?
@@ -43,12 +53,6 @@ class UserManager {
         let loginManager = FBSDKLoginManager.init()
         loginManager.logOut()
         return true
-    }
-    
-    func fetchUserInfo() {
-//        userRef.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildAdded, withBlock: { snapshot in
-//            UserManager.user.pictureURL = String(snapshot.childSnapshotForPath("profile_picture").value)
-//        })
     }
     
     func signUp(auth: FAuthData) {
@@ -96,16 +100,15 @@ class UserManager {
     }
     
     func setProfileImage(imageView: UIImageView) {
-        userRef.childByAppendingPath("profile_picture").observeEventType(.Value, withBlock: { snapshot in
+        userRef.childByAppendingPath("profile_picture").observeSingleEventOfType(.Value, withBlock: { snapshot in
             self.pictureURL = String(snapshot.value)
             if let url = NSURL(string: self.pictureURL) {
-                print("Download Started")
+                print("Download for profile picture started")
                 print("lastPathComponent: " + (url.lastPathComponent ?? ""))
                 self.getDataFromUrl(url) { (data, response, error)  in
                     dispatch_async(dispatch_get_main_queue()) { () -> Void in
                         guard let data = data where error == nil else { return }
-                        print(response?.suggestedFilename ?? "")
-                        print("Download Finished")
+                        print("Download finished")
                         imageView.image = UIImage(data: data)
                     }
                 }

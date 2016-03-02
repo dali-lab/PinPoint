@@ -92,6 +92,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 //        })
     }
     
+    // perform special segue with the slide menu controller; duplicated with confirm vc
     func segueWithSlideMenu() {
         SlideMenuOptions.leftViewWidth = self.view.bounds.size.width/2
         
