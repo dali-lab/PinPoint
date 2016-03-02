@@ -41,6 +41,9 @@ class UserManager {
             userRef.childByAppendingPath("phone_number_verified").observeSingleEventOfType(.Value, withBlock: { snapshot in
                 if (String(snapshot.value) == "1") { // true
                     completion()
+                } else {
+                    print("user didn't have a verified phone number") // todo this should bring them to the next page instead?
+                    self.logout()
                 }
             })
         }
@@ -127,7 +130,8 @@ class UserManager {
     }
     
     // set local and database code value
-    func setCode(code: String!) {
+    func setCode() {
+        let code = String(arc4random_uniform(UInt32(9000)) + 1000) // 4 digit code
         self.code = code
         updateUser(["confirmation_code": self.code])
     }

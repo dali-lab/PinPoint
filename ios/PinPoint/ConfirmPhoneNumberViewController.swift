@@ -28,12 +28,41 @@ class ConfirmPhoneNumberViewController: UIViewController, UITextFieldDelegate {
         
         self.navigationItem.title = "Verify Phone Number"
         navigationController?.interactivePopGestureRecognizer?.enabled = false
+        
+        // dynamic movement with keyboard
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         confirmationCodeTextField.becomeFirstResponder()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidAppear(animated)
+        print("disappeared")
+        confirmationCodeTextField.resignFirstResponder()
+        
+    }
+    
+    // move stuff when keyboard shows
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            self.view.frame.origin.y -= keyboardSize.height
+        }
+        
+    }
+    
+    // move stuff when keyboard hides
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            self.view.frame.origin.y += keyboardSize.height
+        }
+    }
+    
+    @IBAction func bigNextButtonPressed(sender: AnyObject) {
+        confirmConfirmationNumber()
     }
     
     // phone number verification

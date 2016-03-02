@@ -185,49 +185,72 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="We'll send you a text to verify your phone number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPJ-ZF-BP9">
-                                <rect key="frame" x="150" y="167" width="300" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5N4-RC-F2Y">
+                                <rect key="frame" x="0.0" y="514" width="600" height="86"/>
+                                <color key="backgroundColor" red="0.95294117647058818" green="0.21568627450980393" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="w4u-b6-gjb"/>
+                                    <constraint firstAttribute="height" constant="86" id="bHm-gM-T1q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Next">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="bigNextButtonPressed:" destination="ibY-jI-mCy" eventType="touchUpInside" id="fYz-tC-krR"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone" translatesAutoresizingMaskIntoConstraints="NO" id="iPs-fu-V8O">
+                                <rect key="frame" x="201" y="329" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="L4l-gf-VEe"/>
+                                    <constraint firstAttribute="height" constant="20" id="kAC-40-FWB"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We'll send you a text to verify your phone number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPJ-ZF-BP9">
+                                <rect key="frame" x="150" y="368" width="300" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="M69-Eo-3Kg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y33-Fw-mdV">
-                                <rect key="frame" x="229" y="123" width="142" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y33-Fw-mdV">
+                                <rect key="frame" x="229" y="324" width="142" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="142" id="vgL-kU-f1u"/>
+                                    <constraint firstAttribute="width" constant="142" id="jsh-Eg-mJn"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone" translatesAutoresizingMaskIntoConstraints="NO" id="iPs-fu-V8O">
-                                <rect key="frame" x="201" y="128" width="20" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="o6b-jR-049"/>
-                                    <constraint firstAttribute="width" secondItem="iPs-fu-V8O" secondAttribute="height" multiplier="1:1" id="pgW-LA-Vj8"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="RPJ-ZF-BP9" firstAttribute="centerX" secondItem="ifg-xO-CZd" secondAttribute="centerX" id="Hrx-jd-Nmi"/>
+                            <constraint firstItem="5N4-RC-F2Y" firstAttribute="bottom" secondItem="ZUj-Qa-ZYD" secondAttribute="top" id="5KI-8A-ddI"/>
+                            <constraint firstItem="5N4-RC-F2Y" firstAttribute="leading" secondItem="ifg-xO-CZd" secondAttribute="leading" id="6iS-b0-FcZ"/>
+                            <constraint firstItem="RPJ-ZF-BP9" firstAttribute="top" secondItem="y33-Fw-mdV" secondAttribute="bottom" constant="14" id="DQH-1s-Hh8"/>
+                            <constraint firstItem="y33-Fw-mdV" firstAttribute="leading" secondItem="iPs-fu-V8O" secondAttribute="trailing" constant="8" symbolic="YES" id="LmS-pg-qEe"/>
+                            <constraint firstItem="iPs-fu-V8O" firstAttribute="centerY" secondItem="y33-Fw-mdV" secondAttribute="centerY" id="NTJ-vE-4nw"/>
+                            <constraint firstItem="RPJ-ZF-BP9" firstAttribute="centerX" secondItem="y33-Fw-mdV" secondAttribute="centerX" id="SBI-JU-N28"/>
                             <constraint firstItem="RPJ-ZF-BP9" firstAttribute="centerY" secondItem="ifg-xO-CZd" secondAttribute="centerY" id="SKn-sg-cYC"/>
-                            <constraint firstItem="y33-Fw-mdV" firstAttribute="centerX" secondItem="RPJ-ZF-BP9" secondAttribute="centerX" id="WNS-qT-tKR"/>
-                            <constraint firstItem="y33-Fw-mdV" firstAttribute="leading" secondItem="iPs-fu-V8O" secondAttribute="trailing" constant="8" symbolic="YES" id="Wle-IL-HXT"/>
-                            <constraint firstItem="y33-Fw-mdV" firstAttribute="top" secondItem="vD6-41-nIZ" secondAttribute="bottom" constant="59" id="abj-BU-QHb"/>
-                            <constraint firstItem="RPJ-ZF-BP9" firstAttribute="top" secondItem="y33-Fw-mdV" secondAttribute="bottom" constant="14" id="hhF-Qk-9hL"/>
-                            <constraint firstItem="y33-Fw-mdV" firstAttribute="centerY" secondItem="iPs-fu-V8O" secondAttribute="centerY" id="pPt-zU-Chj"/>
+                            <constraint firstItem="ZUj-Qa-ZYD" firstAttribute="top" secondItem="5N4-RC-F2Y" secondAttribute="bottom" id="UpP-sa-Vyb"/>
+                            <constraint firstAttribute="trailing" secondItem="5N4-RC-F2Y" secondAttribute="trailing" id="Yc9-4D-rCL"/>
+                            <constraint firstItem="5N4-RC-F2Y" firstAttribute="centerX" secondItem="RPJ-ZF-BP9" secondAttribute="centerX" id="lFO-RJ-vKI"/>
+                            <constraint firstItem="5N4-RC-F2Y" firstAttribute="bottom" secondItem="ZUj-Qa-ZYD" secondAttribute="top" id="pSq-ls-zhb"/>
+                            <constraint firstItem="y33-Fw-mdV" firstAttribute="top" secondItem="vD6-41-nIZ" secondAttribute="bottom" constant="260" id="tgL-TA-sC1"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="SKn-sg-cYC"/>
+                                <exclude reference="pSq-ls-zhb"/>
+                                <exclude reference="UpP-sa-Vyb"/>
                             </mask>
                         </variation>
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="explanationTextField" destination="RPJ-ZF-BP9" id="fDo-X6-lw6"/>
+                        <outlet property="nextButton" destination="5N4-RC-F2Y" id="dSJ-8W-4bz"/>
                         <outlet property="phoneNumbertextField" destination="y33-Fw-mdV" id="XA4-Jc-NDO"/>
                         <segue destination="KGo-N5-UxN" kind="show" identifier="basicInfoEnteredSegue" id="0L9-I4-4wk"/>
                     </connections>
@@ -249,7 +272,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirmation Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iCH-30-MAv">
-                                <rect key="frame" x="216" y="123" width="168" height="30"/>
+                                <rect key="frame" x="216" y="324" width="168" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="168" id="VgP-FG-DqW"/>
                                 </constraints>
@@ -257,7 +280,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the 4 digit number we sent" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iO9-eA-0Nu">
-                                <rect key="frame" x="150" y="167" width="300" height="21"/>
+                                <rect key="frame" x="150" y="368" width="300" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="EmC-q9-QKb"/>
                                     <constraint firstAttribute="height" constant="21" id="V4m-KF-8Uu"/>
@@ -266,11 +289,28 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Tv-e7-bZ3">
+                                <rect key="frame" x="0.0" y="514" width="600" height="86"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.2156862745" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="86" id="Uob-iJ-Su2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Next">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="bigNextButtonPressed:" destination="KGo-N5-UxN" eventType="touchUpInside" id="pwi-Zd-2Fq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="iCH-30-MAv" firstAttribute="top" secondItem="eDM-ib-RgG" secondAttribute="bottom" constant="59" id="a4d-bD-nSm"/>
+                            <constraint firstItem="1Tv-e7-bZ3" firstAttribute="centerX" secondItem="iO9-eA-0Nu" secondAttribute="centerX" id="8G1-22-8gs"/>
+                            <constraint firstItem="1Tv-e7-bZ3" firstAttribute="bottom" secondItem="2Nh-70-NEF" secondAttribute="top" id="SRr-2u-j9I"/>
+                            <constraint firstItem="iCH-30-MAv" firstAttribute="top" secondItem="eDM-ib-RgG" secondAttribute="bottom" constant="260" id="a4d-bD-nSm"/>
                             <constraint firstItem="iO9-eA-0Nu" firstAttribute="centerX" secondItem="iCH-30-MAv" secondAttribute="centerX" id="bo6-Z7-H6G"/>
+                            <constraint firstItem="1Tv-e7-bZ3" firstAttribute="leading" secondItem="K1X-FA-gTL" secondAttribute="leading" id="jUX-uQ-1KI"/>
                             <constraint firstItem="iCH-30-MAv" firstAttribute="centerX" secondItem="K1X-FA-gTL" secondAttribute="centerX" id="odh-fC-SLy"/>
                             <constraint firstItem="iO9-eA-0Nu" firstAttribute="top" secondItem="iCH-30-MAv" secondAttribute="bottom" constant="14" id="tlR-ni-hLs"/>
                         </constraints>
@@ -749,6 +789,6 @@
         <image name="settings_icon" width="44" height="43"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8w4-Sw-YuD"/>
+        <segue reference="QEC-A9-JJr"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -12,8 +12,7 @@ import FBSDKLoginKit
 import Firebase
 
 class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
-    
-    // TO DO:
+    // Phone number input constraints:
     // 1. Don't allow user to input beyond 10 characters, i.e UI stops reacting after additional button presses
     // 2. Processing as the user inputs digits, adding dashes only after user inputs all 10 characters. Removing all dashes if user deletes (9 chars or less)
     //      (555) 555-5555
@@ -22,10 +21,10 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
     
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
     
-    // Charley
+    @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var phoneNumbertextField: UITextField!
+    @IBOutlet weak var explanationTextField: UILabel!
     
-    // Charley
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -35,35 +34,51 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
         // setup custom nav bar items
         let leftNavItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutButtonPressed")
         navigationItem.leftBarButtonItem = leftNavItem
-        let rightNavItem = UIBarButtonItem(title: "Continue", style: .Plain, target: self, action: "nextButtonPressed")
+        let rightNavItem = UIBarButtonItem(title: "Continue", style: .Plain, target: self, action: "confirmPhoneNumber")
         navigationItem.rightBarButtonItem = rightNavItem
         
         self.navigationItem.title = "Add Phone Number"
         navigationController?.interactivePopGestureRecognizer?.enabled = false
+        
+        // dynamic movement with keyboard
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        phoneNumbertextField.becomeFirstResponder()
-        
         // reset phone number placeholder color
         phoneNumbertextField.attributedPlaceholder = NSAttributedString(string:"Phone Number", attributes:[NSForegroundColorAttributeName: PlaceholderColor])
         
         // get and set new confirmation code
-        let code = String(arc4random_uniform(UInt32(9000)) + 1000) // 4 digit code
-        UserManager.user.setCode(code)
-    }
-    
-    // when the user taps the return button
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        return true;
+        UserManager.user.setCode()
     }
     
     // log out (of Facebook)
     func logoutButtonPressed() {
         UserManager.user.logout()
         self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        phoneNumbertextField.becomeFirstResponder()
+    }
+    
+    // move stuff when keyboard shows
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            self.view.frame.origin.y -= keyboardSize.height
+        }
+        
+    }
+    
+    // move stuff when keyboard hides
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            self.view.frame.origin.y += keyboardSize.height
+        }
     }
     
     // Charley
@@ -119,19 +134,33 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func bigNextButtonPressed(sender: AnyObject) {
+        phoneNumbertextField.resignFirstResponder()
+        confirmPhoneNumber()
+    }
+    
     // Charley
-    func nextButtonPressed() {
+    func confirmPhoneNumber() {
         let phoneNo = stripNumber()
-        if (phoneNo.characters.count == 10) { // valid text entry
+        if (phoneNo.characters.count == 10) { // valid entry
             UserManager.user.setPhoneNumber(phoneNo as String!)
             if (UserManager.user.sendCodeToUser()) {
                 self.performSegueWithIdentifier("basicInfoEnteredSegue", sender: self)
             }
         }
-        else {
-            // TODO need to display some more error warning stuff CHARLEY TODO
+        else { // invalid entry
             phoneNumbertextField.attributedPlaceholder = NSAttributedString(string:"Phone Number", attributes:[NSForegroundColorAttributeName: ThemeAccent])
+            explanationTextField.attributedText = NSAttributedString(string:"Invalid phone number", attributes:[NSForegroundColorAttributeName: ThemeAccent])
+            _ = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "revertErrorMessages", userInfo: nil, repeats: false)
         }
+    }
+    
+    func revertErrorMessages() {
+        
+        UIView.animateWithDuration(1, animations: { () -> Void in
+            self.phoneNumbertextField.attributedPlaceholder = NSAttributedString(string:"Phone Number", attributes:[NSForegroundColorAttributeName: PlaceholderColor])
+            self.explanationTextField.attributedText = NSAttributedString(string:"Please enter your phone number", attributes:[NSForegroundColorAttributeName: Black])
+        })
     }
     
     // Charley
