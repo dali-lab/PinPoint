@@ -383,19 +383,29 @@
                                     <constraint firstAttribute="width" secondItem="8vG-tb-mL4" secondAttribute="height" multiplier="1:1" id="yxC-KA-CxV"/>
                                 </constraints>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map_pin" translatesAutoresizingMaskIntoConstraints="NO" id="Rep-T2-gGX">
+                                <rect key="frame" x="293" y="250" width="14" height="51"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Rep-T2-gGX" secondAttribute="height" multiplier="258:922" id="9z9-Lt-B8A"/>
+                                    <constraint firstAttribute="height" constant="51" id="Hr3-WF-1wS"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="j3X-C1-3cA" firstAttribute="leading" secondItem="kl3-8z-bfn" secondAttribute="leadingMargin" constant="8" id="1CY-0W-GBm"/>
+                            <constraint firstItem="2iY-bP-oeI" firstAttribute="bottom" secondItem="Rep-T2-gGX" secondAttribute="bottom" constant="9" id="84n-eY-7oS"/>
                             <constraint firstItem="8vG-tb-mL4" firstAttribute="top" secondItem="kl3-8z-bfn" secondAttribute="topMargin" constant="80" id="Bat-ij-WNq"/>
                             <constraint firstAttribute="bottom" secondItem="j3X-C1-3cA" secondAttribute="bottom" constant="91" id="FiM-Va-VBp"/>
                             <constraint firstItem="zVD-PI-mg3" firstAttribute="top" secondItem="j3X-C1-3cA" secondAttribute="bottom" constant="8" symbolic="YES" id="GgH-1u-Q6Y"/>
                             <constraint firstItem="2iY-bP-oeI" firstAttribute="centerX" secondItem="kl3-8z-bfn" secondAttribute="centerX" id="LiG-NB-MnU"/>
+                            <constraint firstItem="Rep-T2-gGX" firstAttribute="centerX" secondItem="kl3-8z-bfn" secondAttribute="centerX" id="NYX-bf-hjw"/>
                             <constraint firstItem="2iY-bP-oeI" firstAttribute="centerY" secondItem="kl3-8z-bfn" secondAttribute="centerY" id="PxR-Ik-sKG"/>
                             <constraint firstItem="zVD-PI-mg3" firstAttribute="width" secondItem="j3X-C1-3cA" secondAttribute="width" id="QXJ-qd-XM1"/>
                             <constraint firstItem="8vG-tb-mL4" firstAttribute="top" secondItem="Lgt-6Y-S4f" secondAttribute="bottom" constant="24" id="aFC-WO-XmT"/>
                             <constraint firstItem="iKz-AK-gE8" firstAttribute="top" secondItem="zVD-PI-mg3" secondAttribute="bottom" constant="38" id="e7W-Sq-iEg"/>
                             <constraint firstItem="8vG-tb-mL4" firstAttribute="leading" secondItem="kl3-8z-bfn" secondAttribute="leadingMargin" id="lCW-OI-dli"/>
+                            <constraint firstItem="Rep-T2-gGX" firstAttribute="centerX" secondItem="2iY-bP-oeI" secondAttribute="centerX" id="qfI-Ba-OjR"/>
                             <constraint firstItem="j3X-C1-3cA" firstAttribute="leading" secondItem="zVD-PI-mg3" secondAttribute="leading" id="u8l-x9-9Gq"/>
                             <constraint firstItem="zVD-PI-mg3" firstAttribute="height" secondItem="j3X-C1-3cA" secondAttribute="height" id="ug4-x6-9R1"/>
                             <constraint firstItem="j3X-C1-3cA" firstAttribute="leading" secondItem="zVD-PI-mg3" secondAttribute="leading" id="wFw-qL-YfN"/>
@@ -414,6 +424,7 @@
                         <outlet property="deliverHereButton" destination="zVD-PI-mg3" id="AdR-1I-rMx"/>
                         <outlet property="locationButton" destination="j3X-C1-3cA" id="oY2-sQ-yHC"/>
                         <outlet property="profileImage" destination="8vG-tb-mL4" id="4j8-dZ-dQi"/>
+                        <outlet property="textCenterPoint" destination="2iY-bP-oeI" id="t6x-wy-sIk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SQx-PA-XtN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -564,6 +575,7 @@
     </scenes>
     <resources>
         <image name="background" width="750" height="1334"/>
+        <image name="map_pin" width="258" height="922"/>
         <image name="phone" width="63" height="62"/>
         <image name="pinpoint_logo" width="810" height="488"/>
     </resources>

@@ -19,7 +19,7 @@ class UserManager {
     var userRef: Firebase! = nil
     
     var code: String!
-    var location: CLLocationCoordinate2D! = CLLocationCoordinate2D(latitude: 43.705435, longitude: -72.2891243) // Baker librry
+    var location: CLLocation! = CLLocation(latitude: 43.705435, longitude: -72.2891243) // Baker librry
     var phoneNumber: String!
     var phoneNumberVerified: Bool! = false
     var pictureURL: String!
@@ -37,7 +37,7 @@ class UserManager {
     }
     
     func alreadyLoggedIn(completion: () -> Void) {
-        if (login()) {
+        if (self.login()) {
             userRef.childByAppendingPath("phone_number_verified").observeSingleEventOfType(.Value, withBlock: { snapshot in
                 if (String(snapshot.value) == "1") { // true
                     completion()
@@ -48,11 +48,10 @@ class UserManager {
   
     // logout; returns true if successful, false otherwise
     // TODO what should be done in the case of unsuccessful logout? is it even possible?
-    func logout() -> Bool {
+    func logout() {
         // Facebook logout
         let loginManager = FBSDKLoginManager.init()
         loginManager.logOut()
-        return true
     }
     
     func signUp(auth: FAuthData) {
@@ -63,11 +62,12 @@ class UserManager {
                 // get user data
                 print("fetched user: \(result)") // TODO this should be refactored to UserManager
                 let result = result as! NSDictionary
-                var data = [String: String]()
-                data["uid"] = (auth.uid as String)
-                data["name"] = (result["name"] as! String)
-                data["email"] = (result["email"] as! String)
+                var data = [String: AnyObject]()
+                data["uid"] = result["id"]
+                data["name"] = result["name"]
+                data["email"] = result["email"]
                 data["phone_number_verified"] = "false"
+                data["location"] = ""
                 
                 // get picture data
                 let pictureRequest = FBSDKGraphRequest(graphPath: "me/picture?type=large&redirect=false", parameters: nil)
@@ -78,7 +78,7 @@ class UserManager {
                         let result = result as! NSDictionary
                         let pictureData = result["data"] as! NSDictionary
 //                        print("data result:\n\(pictureData)")
-                        data["profile_picture"] = (pictureData["url"] as! String)
+                        data["profile_picture"] = pictureData["url"]
                         UserManager.user.pictureURL = pictureData["url"] as! String
                         
                         // get ref and save
@@ -122,15 +122,6 @@ class UserManager {
             }.resume()
     }
     
-    func haveUserRef() -> Bool {
-        if (userRef != nil) {
-            return true
-        } else {
-            print("Error: userRef not set")
-            return false
-        }
-    }
-    
     func getCode() -> String! {
         return code
     }
@@ -138,7 +129,7 @@ class UserManager {
     // set local and database code value
     func setCode(code: String!) {
         self.code = code
-        updateUser(["confirmation_code": self.code]) // TODO do we really need to store this?
+        updateUser(["confirmation_code": self.code])
     }
     
     // use Twilio to send the code in a text to the user
@@ -185,12 +176,6 @@ class UserManager {
         updateUser(["phone_number": self.phoneNumber])
     }
     
-    func getAndSetPhoneNumberVerified() -> Bool {
-        // TODO need to get phone number verified
-        // first need to set the userRef, which needs to be done in the loggedIn method by whichever thing has already logged the user in
-        return true;
-    }
-    
     // set local and database phone numbers
     func setPhoneNumberVerified(verified: Bool!) {
         self.phoneNumberVerified = verified
@@ -207,10 +192,35 @@ class UserManager {
         userRef = self.ref.childByAppendingPath("users").childByAppendingPath(self.uid)
     }
     
+    // set user location in db
+    func setLocation(location: CLLocation) {
+        self.location = location
+        updateUser(["latitude": self.location.coordinate.latitude])
+        updateUser(["longitude": self.location.coordinate.longitude])
+    }
+    
+    // query db for user's current location
+    func getLocation() {
+        userRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            let lat = snapshot.value.objectForKey("latitude") as? Double
+            let long = snapshot.value.objectForKey("longitude") as? Double
+            let coord = CLLocation(latitude: lat!, longitude: long!)
+            print(coord)
+        })
+    }
+    
     func updateUser(data: [String: AnyObject]) {
         if (haveUserRef()) {
             userRef.updateChildValues(data)
         }
     }
     
+    func haveUserRef() -> Bool {
+        if (userRef != nil) {
+            return true
+        } else {
+            print("Error: userRef not set")
+            return false
+        }
+    }
 }

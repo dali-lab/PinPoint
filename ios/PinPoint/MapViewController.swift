@@ -15,18 +15,18 @@ import Firebase
 
 class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate{
     
+    @IBOutlet weak var textCenterPoint: UILabel!
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var deliverHereButton: UIButton!
     
     let ref = Firebase(url: "https://pinpoint-app.firebaseio.com")
-    let user = UserManager.user
     
     var mapView: MGLMapView!
-//    var mapView: MKMapView!
     let locationManager = CLLocationManager()
-    var gotUserLocation = false
     var searchViewController: SearchLocationViewController!
+    
+    var gotLocation = false
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -66,11 +66,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         profileImage.addGestureRecognizer(profileTap)
         
         setMapCenterToUserLocationWithZoom(16)
-        navigationController?.interactivePopGestureRecognizer?.enabled = false
+        navigationController?.interactivePopGestureRecognizer?.enabled = false // disable left swipe
         
         slideMenuController()?.navigationController?.navigationBarHidden = true
         slideMenuController()?.removeRightGestures()
         slideMenuController()?.removeLeftGestures()
+        
+        textCenterPoint.text = "" //remove ><, which is stil used to center the pin
     }
     
     // respond to profile image press
@@ -91,6 +93,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
                              styleURL: MGLStyle.streetsStyleURL())
         mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         
+        mapView.rotateEnabled = false
+        mapView.showsUserLocation = true
+        
         view.addSubview(mapView)
         view.sendSubviewToBack(mapView)
         
@@ -100,7 +105,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         // Location service
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
     }
@@ -114,26 +119,19 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     // Set location for top bar and map while using the default zoom value
     func setMapCenterToUserLocation() {
         // update top bar
-        let location: CLLocation = CLLocation(latitude: UserManager.user.location.latitude, longitude: UserManager.user.location.longitude)
-        LocationUtils.reverseGeocoding(location, completion: updateResultBar)
+        LocationUtils.reverseGeocoding(UserManager.user.location, completion: updateResultBar)
         
         // update map location by setting center coordinate
-        mapView.setCenterCoordinate(CLLocationCoordinate2D(
-            latitude: UserManager.user.location.latitude,
-            longitude: UserManager.user.location.longitude),
-            animated: true)
+        mapView.setCenterCoordinate(UserManager.user.location.coordinate, animated: true)
     }
     
     // Set location for top bar and map but take in a zoom level
     func setMapCenterToUserLocationWithZoom(zoom: Double) {
         // update top bar
-        let location: CLLocation = CLLocation(latitude: UserManager.user.location.latitude, longitude: UserManager.user.location.longitude)
-        LocationUtils.reverseGeocoding(location, completion: updateResultBar)
+        LocationUtils.reverseGeocoding(UserManager.user.location, completion: updateResultBar)
         
         // update map location by setting center coordinate
-        mapView.setCenterCoordinate(CLLocationCoordinate2D(
-            latitude: UserManager.user.location.latitude,
-            longitude: UserManager.user.location.longitude),
+        mapView.setCenterCoordinate(UserManager.user.location.coordinate,
             zoomLevel: zoom,
             animated: true)
     }
@@ -144,20 +142,18 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     
     // get user's current location once
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // TODO manager not nil?
-        if (!gotUserLocation) {
-            print("Getting and setting map to user location")
-            UserManager.user.location = manager.location!.coordinate
+        let dist = manager.location!.distanceFromLocation(UserManager.user.location)
+        if (dist > 5 || !gotLocation) { // significant change in location reading
+            print("Getting and setting map to user location (distance: \(dist))")
+            UserManager.user.location = manager.location
             setMapCenterToUserLocationWithZoom(16)
-            gotUserLocation = true
-            locationManager.stopUpdatingLocation()
+            gotLocation = true
         }
     }
     
     // get screen center point and set the user's location
     func setUserLocationToScreenCenter() {
-        let centerScreenPoint: CGPoint = mapView.convertCoordinate(mapView.centerCoordinate, toPointToView: mapView)
-        UserManager.user.location = mapView.convertPoint(centerScreenPoint, toCoordinateFromView: mapView)
+        UserManager.user.setLocation(CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude))
     }
 }
 
@@ -166,12 +162,11 @@ extension MapViewController: SearchResultDelegate {
     
     func searchResultSelected(sender: AnyObject) {
         let cell = sender as! ResultTableViewCell
-        UserManager.user.location = cell.placemark.location?.coordinate
+        UserManager.user.location = cell.placemark.location
         setMapCenterToUserLocationWithZoom(16)
     }
     
     func setToCurrentLocation(sender: AnyObject) {
-        gotUserLocation = false
-        locationManager.startUpdatingLocation()
+        UserManager.user.setLocation(locationManager.location!)
     }
 }
