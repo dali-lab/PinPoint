@@ -70,7 +70,6 @@ class UserManager {
                 data["name"] = result["name"]
                 data["email"] = result["email"]
                 data["phone_number_verified"] = "false"
-                data["location"] = ""
                 
                 // get picture data
                 let pictureRequest = FBSDKGraphRequest(graphPath: "me/picture?type=large&redirect=false", parameters: nil)
