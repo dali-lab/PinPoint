@@ -587,17 +587,17 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map_pin" translatesAutoresizingMaskIntoConstraints="NO" id="Rep-T2-gGX">
-                                <rect key="frame" x="293" y="250" width="14" height="51"/>
+                                <rect key="frame" x="292" y="244" width="16" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Rep-T2-gGX" secondAttribute="height" multiplier="258:922" id="9z9-Lt-B8A"/>
-                                    <constraint firstAttribute="height" constant="51" id="Hr3-WF-1wS"/>
+                                    <constraint firstAttribute="height" constant="58" id="Hr3-WF-1wS"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="j3X-C1-3cA" firstAttribute="leading" secondItem="kl3-8z-bfn" secondAttribute="leadingMargin" constant="8" id="1CY-0W-GBm"/>
-                            <constraint firstItem="2iY-bP-oeI" firstAttribute="bottom" secondItem="Rep-T2-gGX" secondAttribute="bottom" constant="9" id="84n-eY-7oS"/>
+                            <constraint firstItem="2iY-bP-oeI" firstAttribute="bottom" secondItem="Rep-T2-gGX" secondAttribute="bottom" constant="8" id="84n-eY-7oS"/>
                             <constraint firstItem="8vG-tb-mL4" firstAttribute="top" secondItem="kl3-8z-bfn" secondAttribute="topMargin" constant="80" id="Bat-ij-WNq"/>
                             <constraint firstAttribute="bottom" secondItem="j3X-C1-3cA" secondAttribute="bottom" constant="91" id="FiM-Va-VBp"/>
                             <constraint firstItem="zVD-PI-mg3" firstAttribute="top" secondItem="j3X-C1-3cA" secondAttribute="bottom" constant="8" symbolic="YES" id="GgH-1u-Q6Y"/>
