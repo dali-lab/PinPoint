@@ -59,8 +59,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                     if error != nil {
                         print("Login failed. \(error)")
                     } else {
-                        self.loginUser(authData)
-                        UserManager.user.setUID(authData.uid)
+//                        UserManager.user.setUID(authData.uid)
+                        if (UserManager.user.login()) {
+                            self.segueWithSlideMenu()
+                        }
                     }
             })
         }
@@ -73,20 +75,21 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     //get the user
     func loginUser(auth: FAuthData) {
-        let userExistsRef = self.ref.childByAppendingPath("users" + auth.uid)
-        userExistsRef.observeEventType(.Value, withBlock: { snap in
-            if snap.value is NSNull {
-                //TODO handle user account doesn't exist
-                let loginManager = FBSDKLoginManager.init()
-                loginManager.logOut()
-            }
-        })
-        let userRef = self.ref.childByAppendingPath("users")
-        userRef.queryOrderedByChild("uid").queryEqualToValue(auth.uid).observeEventType(.ChildAdded, withBlock: { snapshot in
-            print("logging in: ")
-            UserManager.user.pictureURL = String(snapshot.childSnapshotForPath("profile_picture").value)
-            self.segueWithSlideMenu()
-        })
+        UserManager.user.login()
+//        let userExistsRef = self.ref.childByAppendingPath("users" + auth.uid)
+//        userExistsRef.observeEventType(.Value, withBlock: { snap in
+//            if snap.value is NSNull {
+//                //TODO handle user account doesn't exist
+//                print("user account doesn't exist?")
+//                let loginManager = FBSDKLoginManager.init()
+//                loginManager.logOut()
+//            }
+//        })
+//        let userRef = self.ref.childByAppendingPath("users")
+//        userRef.queryOrderedByChild("uid").queryEqualToValue(auth.uid).observeEventType(.ChildAdded, withBlock: { snapshot in
+//            print("logging in: ")
+////            UserManager.user.pictureURL = String(snapshot.childSnapshotForPath("profile_picture").value)
+//        })
     }
     
     func segueWithSlideMenu() {

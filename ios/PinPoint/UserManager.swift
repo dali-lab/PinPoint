@@ -21,11 +21,18 @@ class UserManager {
     var code: String!
     var location: CLLocationCoordinate2D! = CLLocationCoordinate2D(latitude: 43.705435, longitude: -72.2891243) // Baker librry
     var phoneNumber: String!
+    var phoneNumberVerified: Bool! = false
     var pictureURL: String!
     private var uid: String!
     
     // TODO refactor login/new user code here; this will probably just take the methods from SignUp- and Login- ViewController
-    func login() -> Bool{
+    func login() -> Bool {
+        if (FBSDKAccessToken.currentAccessToken() == nil) {
+            return false
+        }
+        setUID(FBSDKAccessToken.currentAccessToken().userID)
+        
+        print("User logged in with Facebook")
         return true
     }
   
@@ -38,11 +45,85 @@ class UserManager {
         return true
     }
     
+    func fetchUserInfo() {
+//        userRef.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildAdded, withBlock: { snapshot in
+//            UserManager.user.pictureURL = String(snapshot.childSnapshotForPath("profile_picture").value)
+//        })
+    }
+    
+    func signUp(auth: FAuthData) {
+        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "email, name"])
+        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            
+            if error == nil {
+                // get user data
+                print("fetched user: \(result)") // TODO this should be refactored to UserManager
+                let result = result as! NSDictionary
+                var data = [String: String]()
+                data["uid"] = (auth.uid as String)
+                data["name"] = (result["name"] as! String)
+                data["email"] = (result["email"] as! String)
+                data["phone_number_verified"] = "false"
+                
+                // get picture data
+                let pictureRequest = FBSDKGraphRequest(graphPath: "me/picture?type=large&redirect=false", parameters: nil)
+                pictureRequest.startWithCompletionHandler({
+                    (connection, result, error: NSError!) -> Void in
+                    if error == nil {
+                        // get picture data
+                        let result = result as! NSDictionary
+                        let pictureData = result["data"] as! NSDictionary
+//                        print("data result:\n\(pictureData)")
+                        data["profile_picture"] = (pictureData["url"] as! String)
+                        UserManager.user.pictureURL = pictureData["url"] as! String
+                        
+                        // get ref and save
+                        let userRef = self.ref.childByAppendingPath("users")
+                        let user = [UserManager.user.getUID(): data]
+                        userRef.setValue(user)
+                        
+                    } else {
+                        print("Error: \(error)")
+                        // TODO
+                    }
+                })
+                
+            } else {
+                print("Error: \(error)")
+                // TODO
+            }
+        })
+    }
+    
+    func setProfileImage(imageView: UIImageView) {
+        userRef.childByAppendingPath("profile_picture").observeEventType(.Value, withBlock: { snapshot in
+            self.pictureURL = String(snapshot.value)
+            if let url = NSURL(string: self.pictureURL) {
+                print("Download Started")
+                print("lastPathComponent: " + (url.lastPathComponent ?? ""))
+                self.getDataFromUrl(url) { (data, response, error)  in
+                    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                        guard let data = data where error == nil else { return }
+                        print(response?.suggestedFilename ?? "")
+                        print("Download Finished")
+                        imageView.image = UIImage(data: data)
+                    }
+                }
+            }
+        })
+    }
+    
+    func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
+        NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
+            completion(data: data, response: response, error: error)
+            }.resume()
+    }
+    
     func haveUserRef() -> Bool {
         if (userRef != nil) {
             return true
         } else {
-            print("Error: userRef not set)")
+            print("Error: userRef not set")
             return false
         }
     }
@@ -99,6 +180,22 @@ class UserManager {
     func setPhoneNumber(phoneNumber: String!) {
         self.phoneNumber = phoneNumber
         updateUser(["phone_number": self.phoneNumber])
+    }
+    
+    func getAndSetPhoneNumberVerified() -> Bool {
+        // TODO need to get phone number verified
+        // first need to set the userRef, which needs to be done in the loggedIn method by whichever thing has already logged the user in
+        return true;
+    }
+    
+    // set local and database phone numbers
+    func setPhoneNumberVerified(verified: Bool!) {
+        self.phoneNumberVerified = verified
+        updateUser(["phone_number_verified": self.phoneNumberVerified])
+    }
+    
+    func getUID() -> String! {
+        return self.uid
     }
     
     // set UID and create userRef

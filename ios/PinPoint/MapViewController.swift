@@ -59,12 +59,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         
 
         // TODO better picture url fetch; put in db
-        if let url = user.pictureURL {
-            if let checkedUrl = NSURL(string: url) {
-                profileImage.contentMode = .ScaleAspectFit
-                downloadImage(checkedUrl)
-            }
-        }
+//        if let url = user.pictureURL {
+//            if let checkedUrl = NSURL(string: url) {
+//                downloadImage(checkedUrl)
+//            }
+//        }
+//        
+        profileImage.contentMode = .ScaleAspectFit
+        print("did load")
+        UserManager.user.setProfileImage(profileImage)
         
         // profile picture setup
         let profileTap = UITapGestureRecognizer(target: self, action:"profileImagePressed")
@@ -79,8 +82,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         slideMenuController()?.removeLeftGestures()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
+//        print("did appear")
+//        UserManager.user.setProfileImage(profileImage)
         
         // TODO better way to set default location behavior?
         // set default location each view is presented
@@ -94,24 +99,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
     func profileImagePressed() {
         print("profile image pressed")
         self.slideMenuController()?.openLeft()
-    }
-    
-    // TODO abstract to UserManager
-    func downloadImage(url: NSURL){
-        print("attempting to download image: " + (url.lastPathComponent ?? ""))
-        getDataFromUrl(url) { (data, response, error)  in
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                guard let data = data where error == nil else { return }
-                print("downloaded profile image: " + (response?.suggestedFilename)!)
-                self.profileImage.image = UIImage(data: data)
-            }
-        }
-    }
-    
-    func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
-        NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
-            completion(data: data, response: response, error: error)
-            }.resume()
     }
     
     // show search view controller

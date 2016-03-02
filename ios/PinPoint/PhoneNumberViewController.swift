@@ -31,7 +31,6 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
         
         // delegate to process user input and set keyboard as number pad
         phoneNumbertextField.delegate = self;
-        phoneNumbertextField.keyboardType = .PhonePad
         
         // setup custom nav bar items
         let leftNavItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutButtonPressed")
@@ -46,7 +45,7 @@ class PhoneNumberViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        phoneNumbertextField.isFirstResponder()
+        phoneNumbertextField.becomeFirstResponder()
         
         // reset phone number placeholder color
         phoneNumbertextField.attributedPlaceholder = NSAttributedString(string:"Phone Number", attributes:[NSForegroundColorAttributeName: PlaceholderColor])

@@ -22,7 +22,6 @@ class ConfirmPhoneNumberViewController: UIViewController, UITextFieldDelegate {
         
         // delegate to process user input and set keyboard as number pad
         confirmationCodeTextField.delegate = self;
-        confirmationCodeTextField.keyboardType = .NumberPad
         
         let rightNavItem = UIBarButtonItem(title: "Confirm", style: .Plain, target: self, action: "confirmConfirmationNumber")
         navigationItem.rightBarButtonItem = rightNavItem
@@ -33,12 +32,15 @@ class ConfirmPhoneNumberViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        confirmationCodeTextField.becomeFirstResponder()
     }
     
     // phone number verification
     func confirmConfirmationNumber() {
         if (textFieldValid() && UserManager.user.getCode() == confirmationCodeTextField.text! as String) {
             print("Confirmation code successful")
+            UserManager.user.setPhoneNumberVerified(true)
             performSegueWithIdentifier("phoneNumberConfirmedSegue", sender: self)
         } else {
             // TODO need to display some more error warning stuff CHARLEY TODO

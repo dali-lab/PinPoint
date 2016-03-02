@@ -21,8 +21,8 @@ class HomePageViewController: UIViewController {
         super.viewDidLoad();
         
         // user already logged in
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
-            print("User already logged in with Facebook")
+        if (UserManager.user.login()) {
+            UserManager.user
             segueWithSlideMenu()
         }
         
