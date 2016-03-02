@@ -57,10 +57,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, CLLocationManager
         deliverHereButton.layer.backgroundColor = ThemeAccent.CGColor
         deliverHereButton.clipsToBounds = true
         
+        // profile picture setup
         profileImage.contentMode = .ScaleAspectFit
         UserManager.user.setProfileImage(profileImage)
         
-        // profile picture setup
+        // tap
         let profileTap = UITapGestureRecognizer(target: self, action:"profileImagePressed")
         profileImage.userInteractionEnabled = true
         profileImage.addGestureRecognizer(profileTap)

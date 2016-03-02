@@ -11,11 +11,20 @@ import Foundation
 
 class ProfileSlideOutViewController: UIViewController {
     
+    
+    @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var logoutButton: UIButton!
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.slideMenuController()?.addLeftGestures() // to allow for dismissal by gesture
+        
+        profileImage.layer.borderColor = ThemeAccent.CGColor
+        profileImage.layer.borderWidth = BorderWidthSmall
+        profileImage.layer.cornerRadius = profileImage.frame.height/2
+        profileImage.clipsToBounds = true
+        profileImage.contentMode = .ScaleAspectFit
+        UserManager.user.setProfileImage(profileImage)
     }
     
     override func viewDidDisappear(animated: Bool) {
