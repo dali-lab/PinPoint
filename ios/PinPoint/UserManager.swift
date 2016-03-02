@@ -66,10 +66,11 @@ class UserManager {
                 print("fetched user: \(result)") // TODO this should be refactored to UserManager
                 let result = result as! NSDictionary
                 var data = [String: AnyObject]()
-                data["uid"] = result["id"]
+//                data["uid"] = result["id"]
                 data["name"] = result["name"]
                 data["email"] = result["email"]
                 data["phone_number_verified"] = "false"
+                data["confirmation_code"] = self.code
                 
                 // get picture data
                 let pictureRequest = FBSDKGraphRequest(graphPath: "me/picture?type=large&redirect=false", parameters: nil)
@@ -132,7 +133,6 @@ class UserManager {
     func setCode() {
         let code = String(arc4random_uniform(UInt32(9000)) + 1000) // 4 digit code
         self.code = code
-        updateUser(["confirmation_code": self.code])
     }
     
     // use Twilio to send the code in a text to the user
@@ -149,7 +149,7 @@ class UserManager {
             let twilioSecret = keys?["twilioSecret"] as! String
             let fromNumber = "19784714165"
             let toNumber = self.phoneNumber
-            let message = "Your confirmation number is \(UserManager.user.getCode())"
+            let message = "Your confirmation number is \(self.code)"
             
             // build the request
             let request = NSMutableURLRequest(URL: NSURL(string:"https://\(twilioSID):\(twilioSecret)@api.twilio.com/2010-04-01/Accounts/\(twilioSID)/SMS/Messages")!)
